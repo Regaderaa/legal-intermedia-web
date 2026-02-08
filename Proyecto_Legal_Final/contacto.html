@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Legal Intermedia</title>
+    <link rel="icon" type="image/png" href="imagenes/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="logo">LEGAL INTERMEDIA</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li> <li><a href="index.html#producto">Innovación</a></li>
+                <li><a href="index.html#modelos">Catálogo</a></li>
+                <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="contact-page">
+        <div class="container">
+            <div class="contact-header">
+                <h1>Solicitud Oficial de Tarjeta</h1>
+                <p>Formulario seguro de emisión. Sus datos serán verificados con la administración.</p>
+            </div>
+            
+            <div class="form-wrapper">
+                <div class="price-sidebar">
+                    <div class="price-box">
+                        <span class="price">29,90€</span>
+                        <span class="detail">IVA y Envío Incluidos</span>
+                        <ul class="price-features">
+                            <li>✓ Tarjeta PVC Certificada</li>
+                            <li>✓ Chip NFC Programado</li>
+                            <li>✓ Verificación QR Online</li>
+                            <li>✓ Envío Urgente 48h</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <form class="order-form" id="payment-form">
+                    <div class="form-group">
+                        <label>Nombre y Apellidos (Titular)</label>
+                        <input type="text" required placeholder="Tal como aparece en su título oficial">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" required placeholder="Para recibir la confirmación">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono Móvil</label>
+                        <input type="tel" required placeholder="+34 600 000 000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dirección de Envío Completa</label>
+                        <textarea rows="3" placeholder="Calle, número, piso, puerta, código postal y localidad..."></textarea>
+                    </div>
+
+                    <div class="consent-box">
+                        <label>
+                            <input type="checkbox" required> 
+                            He leído y acepto la <a href="legal.html" target="_blank">Política de Privacidad</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="cta-button">TRAMITAR PEDIDO</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>LEGAL INTERMEDIA</h4>
+                <p>Digitalizando la seguridad marítima. Servicios de confianza certificados para profesionales del mar.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="legal.html">Política de Privacidad</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <p>info@legalintermedia.com</p>
+                <p>+34 900 000 000</p>
+                <p>Cáceres, España</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Legal Intermedia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

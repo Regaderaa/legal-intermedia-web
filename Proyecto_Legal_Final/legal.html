@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - Legal Intermedia</title>
+    <link rel="icon" type="image/png" href="imagenes/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS: VISIBILIDAD + INTERACTIVIDAD */
+        .legal-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            
+            /* Preparamos para la interacción suave */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        /* EFECTO INTERACTIVO (HOVER) */
+        .legal-card:hover {
+            transform: translateY(-5px); /* Se eleva */
+            border-color: var(--primary-blue); /* Borde azul */
+            background: rgba(30, 99, 255, 0.1); /* Fondo ligeramente azulado */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* Sombra */
+        }
+
+        .legal-card h3 {
+            color: #ffffff !important;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            transition: color 0.3s;
+        }
+
+        /* El título se pone azul al pasar el ratón */
+        .legal-card:hover h3 {
+            color: var(--primary-blue) !important;
+        }
+
+        .legal-card p {
+            color: #cbd5e1 !important;
+            line-height: 1.6;
+            margin-bottom: 0;
+            transition: color 0.3s;
+        }
+
+        /* El texto se aclara al pasar el ratón */
+        .legal-card:hover p {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="container nav-container">
+            <div class="logo">LEGAL INTERMEDIA</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="index.html#producto">Innovación</a></li>
+                <li><a href="index.html#modelos">Catálogo</a></li>
+                <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero-section" style="height: 40vh; min-height: 300px;">
+        <div class="overlay"></div> 
+        <div class="container hero-content">
+            <h1>Términos Legales</h1>
+            <p class="subtitle">Política de Privacidad y Protección de Datos</p>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        <div class="container" style="padding: 80px 20px; max-width: 900px;">
+            
+            <div class="legal-card">
+                <h3>1. Responsable del Tratamiento</h3>
+                <p>
+                    En cumplimiento del Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), le informamos que los datos personales recabados en este sitio web son responsabilidad de <strong>Legal Intermedia S.L.</strong>, con domicilio social en [Dirección de la Empresa] y NIF [Número NIF].
+                </p>
+            </div>
+
+            <div class="legal-card">
+                <h3>2. Finalidad del Tratamiento</h3>
+                <p>
+                    Sus datos serán tratados con la exclusiva finalidad de:
+                    <br><br>
+                    a) Gestionar la emisión y envío de su tarjeta náutica digital.<br>
+                    b) Verificar la validez de su titulación ante las autoridades competentes.<br>
+                    c) Atender sus consultas y solicitudes de soporte.
+                </p>
+            </div>
+
+            <div class="legal-card">
+                <h3>3. Legitimación y Conservación</h3>
+                <p>
+                    La base legal para el tratamiento es la ejecución del contrato de servicios solicitado. Los datos se conservarán mientras se mantenga la relación comercial o durante los años necesarios para cumplir con las obligaciones legales.
+                </p>
+            </div>
+
+            <div class="legal-card">
+                <h3>4. Derechos del Usuario</h3>
+                <p>
+                    Puede ejercer sus derechos de acceso, rectificación, supresión, oposición y portabilidad enviando un correo electrónico.
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="contacto.html" class="btn-hero">VOLVER AL FORMULARIO</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>LEGAL INTERMEDIA</h4>
+                <p>Digitalizando la seguridad marítima. Servicios de confianza certificados para profesionales del mar.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="legal.html">Política de Privacidad</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <p>info@legalintermedia.com</p>
+                <p>+34 900 000 000</p>
+                <p>Cáceres, España</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Legal Intermedia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        window.addEventListener("load", () => {
+            // Animación de entrada de la cabecera
+            gsap.from(".hero-content", { 
+                y: 30, 
+                opacity: 0, 
+                duration: 1, 
+                ease: "power2.out" 
+            });
+
+            // Animación de entrada de las tarjetas (Cascada)
+            // Usamos autoAlpha para evitar parpadeos y clearProps para que el Hover funcione después
+            gsap.from(".legal-card", { 
+                y: 50, 
+                autoAlpha: 0, // Maneja opacidad y visibilidad a la vez
+                duration: 0.8, 
+                stagger: 0.2, // Retraso entre cada tarjeta
+                ease: "power2.out",
+                delay: 0.3,
+                clearProps: "all" // IMPORTANTE: Al terminar, limpia los estilos de GSAP para que el CSS Hover funcione
+            });
+        });
+    </script>
+
+</body>
+</html>
