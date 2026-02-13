@@ -1,7 +1,7 @@
-// Esperamos a que TODA la página cargue
+// Esperamos a que TODA la página cargue para evitar errores
 window.addEventListener("load", () => {
     
-    // Registramos el plugin de GSAP
+    // Registramos el plugin de GSAP (ScrollTrigger)
     gsap.registerPlugin(ScrollTrigger);
 
     // ==========================================
@@ -30,29 +30,33 @@ window.addEventListener("load", () => {
               .from(".hero-desc", { y: 20, autoAlpha: 0, duration: 0.8 }, "-=0.6")
               .from(".hero-btns a", { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.2, clearProps: "all" }, "-=0.6");
         }
+    }
 
-        // 2. SCROLL HORIZONTAL (SOLO PARA ORDENADOR)
-        if (document.querySelector(".horizontal-scroll-section")) {
+    // ==========================================
+    // PARTE B: LÓGICA PARA SCROLL HORIZONTAL (INNOVACIÓN)
+    // ==========================================
+    if (document.querySelector(".horizontal-scroll-section")) {
+        
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 769px)", () => {
             
-            let mm = gsap.matchMedia();
+            let sections = gsap.utils.toArray(".panel");
+            
+            // Mover los paneles horizontalmente
+            gsap.to(sections, {
+                xPercent: -100 * (sections.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".horizontal-scroll-section",
+                    pin: true,
+                    scrub: 1,
+                    end: "+=3000" 
+                }
+            });
 
-            mm.add("(min-width: 769px)", () => {
-                
-                let sections = gsap.utils.toArray(".panel");
-                
-                // Mover los paneles horizontalmente
-                gsap.to(sections, {
-                    xPercent: -100 * (sections.length - 1),
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: ".horizontal-scroll-section",
-                        pin: true,
-                        scrub: 1,
-                        end: "+=3000" 
-                    }
-                });
-
-                // Mover la tarjeta 3D
+            // Mover la tarjeta 3D si existe
+            if (document.querySelector(".card-img-main")) {
                 gsap.to(".card-img-main", {
                     rotationY: -35, rotationX: 15, z: 100, 
                     boxShadow: "30px 60px 100px rgba(0,0,0,0.4)", 
@@ -64,38 +68,42 @@ window.addEventListener("load", () => {
                         scrub: 1
                     }
                 });
-            });
-        }
-
-        // 3. STEPS (Animación de pasos)
-        if (document.querySelector(".steps-section")) {
-            gsap.from(".step-card", {
-                scrollTrigger: { trigger: ".steps-section", start: "top 75%", toggleActions: "play none none reverse" },
-                y: 60, opacity: 0, duration: 1, stagger: 0.3, ease: "back.out(1.7)"
-            });
-        }
-
-        // 4. CATÁLOGO
-        if (document.querySelector(".catalog-item")) {
-            gsap.set(".catalog-item", { y: 50, opacity: 0 });
-            ScrollTrigger.batch(".catalog-item", {
-                start: "top 85%",
-                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, duration: 0.8, ease: "power2.out", overwrite: true }),
-                once: true
-            });
-        }
-
-        // 5. VENTAJAS
-        if (document.querySelector(".features-section")) {
-            gsap.from(".feature-card", {
-                scrollTrigger: { trigger: ".features-section", start: "top 80%" },
-                scale: 0.8, y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power2.out", clearProps: "all" 
-            });
-        }
+            }
+        });
     }
 
     // ==========================================
-    // PARTE B: LÓGICA SOLO PARA CONTACTO (VISUAL)
+    // PARTE C: OTRAS ANIMACIONES (Pasos, Catálogo, Ventajas)
+    // ==========================================
+    
+    // 1. STEPS (Animación de pasos)
+    if (document.querySelector(".steps-section")) {
+        gsap.from(".step-card", {
+            scrollTrigger: { trigger: ".steps-section", start: "top 75%", toggleActions: "play none none reverse" },
+            y: 60, opacity: 0, duration: 1, stagger: 0.3, ease: "back.out(1.7)"
+        });
+    }
+
+    // 2. CATÁLOGO
+    if (document.querySelector(".catalog-item")) {
+        gsap.set(".catalog-item", { y: 50, opacity: 0 });
+        ScrollTrigger.batch(".catalog-item", {
+            start: "top 85%",
+            onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, duration: 0.8, ease: "power2.out", overwrite: true }),
+            once: true
+        });
+    }
+
+    // 3. VENTAJAS
+    if (document.querySelector(".features-section")) {
+        gsap.from(".feature-card", {
+            scrollTrigger: { trigger: ".features-section", start: "top 80%" },
+            scale: 0.8, y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power2.out", clearProps: "all" 
+        });
+    }
+
+    // ==========================================
+    // PARTE D: LÓGICA SOLO PARA CONTACTO (VISUAL)
     // ==========================================
     if (document.querySelector(".order-form")) {
         let contactTl = gsap.timeline();
@@ -123,22 +131,7 @@ window.addEventListener("load", () => {
     }
 
     // ==========================================
-    // PARTE C: BOTÓN VOLVER ARRIBA
-    // ==========================================
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    if (scrollTopBtn) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) { scrollTopBtn.classList.add("show"); }
-            else { scrollTopBtn.classList.remove("show"); }
-        });
-        scrollTopBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    }
-
-    // ==========================================
-    // PARTE D: ANIMACIÓN IMAGEN "NOSOTROS"
+    // PARTE E: ANIMACIÓN IMAGEN "NOSOTROS"
     // ==========================================
     const nosotrosSection = document.querySelector('.product-showcase');
     const nosotrosImage = document.querySelector('.product-showcase .card-img-main');
@@ -160,9 +153,8 @@ window.addEventListener("load", () => {
             gsap.to(nosotrosImage, { rotationY: 0, rotationX: 0, ease: "elastic.out(1, 0.3)", duration: 1 });
         });
     }
-
-    // ==========================================
-    // PARTE E: PAGO CON STRIPE (BACKEND)
+// ==========================================
+    // PARTE F: PAGO CON STRIPE (BACKEND CON ARCHIVO)
     // ==========================================
     const paymentForm = document.getElementById('payment-form'); 
 
@@ -173,25 +165,20 @@ window.addEventListener("load", () => {
             const submitBtn = paymentForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerText;
 
-            const inputs = paymentForm.querySelectorAll('input, textarea');
-            
-            const datosPedido = {
-                nombre: inputs[0].value,
-                email: inputs[1].value,
-                telefono: inputs[2].value,
-                direccion: inputs[3].value
-            };
-
-            submitBtn.innerText = "PROCESANDO PAGO...";
+            submitBtn.innerText = "SUBIENDO ARCHIVO...";
             submitBtn.style.opacity = "0.7";
             submitBtn.disabled = true;
 
             try {
-                // LLAMADA AL SERVIDOR PARA CREAR PAGO
+                // 1. Empaquetamos todo el formulario (textos + archivo) automáticamente
+                const formData = new FormData(paymentForm);
+
+                // LLAMADA AL SERVIDOR
                 const respuesta = await fetch('/api/crear-sesion-pago', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(datosPedido)
+                    // NOTA IMPORTANTE: Al usar FormData, NO ponemos 'Content-Type': 'application/json'
+                    // El navegador lo pone solo automáticamente como 'multipart/form-data'
+                    body: formData
                 });
 
                 const info = await respuesta.json();
@@ -209,9 +196,9 @@ window.addEventListener("load", () => {
 
             } catch (error) {
                 console.error("Error de conexión:", error);
-                submitBtn.innerText = "ERROR DE CONEXIÓN";
+                submitBtn.innerText = "ERROR";
                 submitBtn.style.backgroundColor = "#ef4444"; 
-                alert("❌ Error: No se puede conectar con el servidor.\nAsegúrate de que 'node server.js' está funcionando.");
+                alert("❌ Error al procesar el pedido o subir el archivo.");
                 
                 setTimeout(() => {
                     submitBtn.innerText = originalText;
@@ -224,20 +211,47 @@ window.addEventListener("load", () => {
     }
 
     // ==========================================
-    // PARTE F: MENSAJE DE ÉXITO AL VOLVER DE STRIPE
+    // PARTE G: MENSAJE DE ÉXITO AL VOLVER DE STRIPE
     // ==========================================
-    // Detectamos si la URL tiene ?pago=exito
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('pago') === 'exito') {
-        
-        // 1. Limpiamos la URL para que no se vea feo
         window.history.replaceState({}, document.title, window.location.pathname);
-        
-        // 2. Mostramos el mensaje de agradecimiento
         setTimeout(() => {
             alert("✨ ¡PAGO REALIZADO CON ÉXITO! ✨\n\nGracias por confiar en Legal Intermedia.\nTu pedido ha sido procesado correctamente.");
         }, 1000);
     }
 
+    // Refrescar GSAP al final
     ScrollTrigger.refresh();
+});
+
+// ==========================================
+// PARTE H: MENÚ HAMBURGUESA (MÓVIL) - FUERA DEL LOAD
+// ==========================================
+// Esto lo ponemos fuera para que funcione instantáneo sin esperar a que carguen las imágenes
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('#mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
+    }
+    
+    // ==========================================
+    // PARTE I: BOTÓN VOLVER ARRIBA
+    // ==========================================
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    if (scrollTopBtn) {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) { scrollTopBtn.classList.add("show"); }
+            else { scrollTopBtn.classList.remove("show"); }
+        });
+        scrollTopBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
 });

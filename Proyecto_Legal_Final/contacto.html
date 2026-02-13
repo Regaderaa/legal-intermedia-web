@@ -8,28 +8,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="contact-page">
 
     <nav class="main-nav">
         <div class="container nav-container">
             <div class="logo">LEGAL INTERMEDIA</div>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
             <ul class="nav-links">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li> <li><a href="index.html#producto">Innovación</a></li>
-                <li><a href="index.html#modelos">Catálogo</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li> 
+                <li><a href="innovacion.html">Innovación</a></li> 
+                <li><a href="funciona.html">Cómo Funciona</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="contact-page">
-        <div class="container">
-            <div class="contact-header">
-                <h1>Solicitud Oficial de Tarjeta</h1>
-                <p>Formulario seguro de emisión. Sus datos serán verificados con la administración.</p>
-            </div>
+    <main>
+        <div class="container" style="padding-top: 140px; padding-bottom: 60px;">
             
+            <div class="contact-header" style="text-align: center;">
+                <h2>Solicita tu Identificación Oficial</h2>
+                <p>Envío urgente certificado en 48/72 horas.</p>
+            </div>
+
             <div class="form-wrapper">
+                
                 <div class="price-sidebar">
                     <div class="price-box">
                         <span class="price">29,90€</span>
@@ -43,39 +54,46 @@
                     </div>
                 </div>
 
-                <form class="order-form" id="payment-form">
-                    <div class="form-group">
-                        <label>Nombre y Apellidos (Titular)</label>
-                        <input type="text" required placeholder="Tal como aparece en su título oficial">
-                    </div>
+                <form id="payment-form" class="order-form" enctype="multipart/form-data">
                     
                     <div class="form-group">
+                        <label>Nombre y Apellidos (Titular)</label>
+                        <input type="text" name="nombre" placeholder="Tal como aparece en su título oficial" required>
+                    </div>
+
+                    <div class="form-group">
                         <label>Correo Electrónico</label>
-                        <input type="email" required placeholder="Para recibir la confirmación">
+                        <input type="email" name="email" placeholder="Para recibir la confirmación" required>
                     </div>
 
                     <div class="form-group">
                         <label>Teléfono Móvil</label>
-                        <input type="tel" required placeholder="+34 600 000 000">
+                        <input type="tel" name="telefono" placeholder="+34 600 000 000" required>
                     </div>
 
                     <div class="form-group">
                         <label>Dirección de Envío Completa</label>
-                        <textarea rows="3" placeholder="Calle, número, piso, puerta, código postal y localidad..."></textarea>
+                        <textarea name="direccion" rows="3" placeholder="Calle, número, piso, puerta, código postal y localidad." required></textarea>
                     </div>
+
+                    <div class="form-group" style="background: rgba(30,99,255,0.05); padding: 15px; border-radius: 6px; border: 1px dashed var(--primary-blue);">
+                        <label style="color: var(--primary-blue); font-weight: bold;">Adjuntar Título Náutico (PDF o Foto)</label>
+                        <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px;">Necesario para verificar sus atribuciones.</p>
+                        <input type="file" name="documento" accept=".pdf, .jpg, .jpeg, .png" required style="border: none; padding-left: 0;">
+                    </div>
+
+                    <button type="submit" class="cta-button">
+                        TRAMITAR PEDIDO
+                    </button>
 
                     <div class="consent-box">
-                        <label>
-                            <input type="checkbox" required> 
-                            He leído y acepto la <a href="legal.html" target="_blank">Política de Privacidad</a>.
-                        </label>
+                        <input type="checkbox" required> He leído y acepto la <a href="legal.html">Política de Privacidad</a>.
                     </div>
-
-                    <button type="submit" class="cta-button">TRAMITAR PEDIDO</button>
                 </form>
             </div>
+
         </div>
-    </section>
+    </main>
 
     <footer class="main-footer">
         <div class="container footer-grid">
@@ -86,8 +104,8 @@
             <div class="footer-col">
                 <h4>Enlaces</h4>
                 <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>

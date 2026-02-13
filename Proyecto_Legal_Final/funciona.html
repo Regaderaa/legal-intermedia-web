@@ -3,24 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosotros - Legal Intermedia</title>
+    <title>Cómo Funciona - Legal Intermedia</title>
     <link rel="icon" type="image/png" href="imagenes/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
     <style>
-        .about-section { padding: 160px 0 100px 0; background: var(--dark-bg); }
-        .about-content { max-width: 800px; margin: 0 auto; }
-        .about-text { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.8; }
-        .highlight-box { 
-            background: rgba(30, 99, 255, 0.1); 
-            border-left: 4px solid var(--primary-blue); 
-            padding: 30px; 
-            margin: 40px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        .highlight-box h3 { color: var(--white); margin-bottom: 15px; }
-        .highlight-box p { margin-bottom: 0; }
+        .steps-section { padding-top: 160px; }
     </style>
 </head>
 <body>
@@ -37,9 +26,9 @@
 
             <ul class="nav-links">
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="nosotros.html" style="color: var(--primary-blue);">Nosotros</a></li> 
+                <li><a href="nosotros.html">Nosotros</a></li> 
                 <li><a href="innovacion.html">Innovación</a></li> 
-                <li><a href="funciona.html">Cómo Funciona</a></li>
+                <li><a href="funciona.html" style="color: var(--primary-blue);">Cómo Funciona</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
             </ul>
@@ -48,36 +37,26 @@
 
     <main>
         
-        <section class="about-section">
+        <section class="steps-section" id="proceso">
             <div class="container">
-                <div class="about-content">
-                    <span class="badge-new" style="margin-bottom: 20px;">NUESTRA MISIÓN</span>
-                    <h2>Digitalizando la Seguridad Marítima</h2>
-                    
-                    <p class="about-text">
-                        En <strong>Legal Intermedia</strong>, nos dedicamos a modernizar la burocracia náutica. Nacimos con un objetivo claro: eliminar el papel mojado y sustituirlo por tecnología inteligente y duradera.
-                    </p>
-
-                    <p class="about-text">
-                        Somos un equipo de ingenieros y expertos legales apasionados por el mar. Entendemos que en el siglo XXI, llevar un título de cartón en un entorno húmedo no tiene sentido. Por eso hemos desarrollado el primer estándar de identificación digital homologado.
-                    </p>
-
-                    <div class="highlight-box">
-                        <h3>Tecnología y Legalidad</h3>
-                        <p class="about-text">
-                            No solo fabricamos tarjetas; creamos un ecosistema seguro. Nuestros chips NFC y códigos QR dinámicos permiten a las autoridades verificar titulaciones en tiempo real, combatiendo el fraude y facilitando la vida al navegante.
-                        </p>
+                <h2>Proceso de Emisión Certificada</h2>
+                <p class="section-intro">Un procedimiento validado jurídicamente en 3 pasos seguros.</p>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Solicitud y Datos</h3>
+                        <p>Selecciona tu titulación y completa el formulario seguro. Necesitamos tus datos registrales exactos para iniciar el expediente administrativo.</p>
                     </div>
-
-                    <h3 style="color: white; margin-top: 50px; margin-bottom: 20px;">¿Por qué elegirnos?</h3>
-                    <p class="about-text">
-                        Trabajamos bajo los más estrictos estándares de la Marina Mercante. Cada tarjeta que emitimos pasa por un doble proceso de verificación jurídica y control de calidad técnico. Garantizamos que tu título estará seguro, accesible y protegido contra los elementos.
-                    </p>
-
-                    <div style="margin-top: 50px; text-align: center;">
-                        <a href="contacto.html" class="btn-hero">CONTACTAR CON EL EQUIPO</a>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Verificación Jurídica</h3>
+                        <p>Nuestro equipo legal coteja la información aportada con las bases de datos oficiales para certificar la validez de tu título antes de la grabación.</p>
                     </div>
-
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Codificación y Envío</h3>
+                        <p>Grabamos tus credenciales en el chip NFC encriptado, imprimimos tu tarjeta por transferencia térmica y la enviamos en 48/72 horas.</p>
+                    </div>
                 </div>
             </div>
         </section>

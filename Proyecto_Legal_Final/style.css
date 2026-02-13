@@ -243,3 +243,101 @@ main, .contact-page { flex: 1; }
     .form-wrapper { gap: 40px; }
     .price-sidebar, .order-form { min-width: 100%; }
 }
+
+/* =========================================
+   MENÚ HAMBURGUESA (VERSIÓN DESPLEGABLE)
+   ========================================= */
+
+/* Estilo base del botón (oculto en PC) */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--white);
+}
+
+/* SOLO PARA MÓVILES (Menor de 768px) - VERSIÓN COMPACTA */
+@media (max-width: 768px) {
+    
+    .nav-container {
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+        z-index: 2000;
+        /* Ajustamos un poco la posición del botón si hace falta */
+    }
+
+    /* Animación del botón */
+    .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* EL MENÚ DESPLEGABLE COMPACTO */
+    .nav-links {
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        height: auto;
+        
+        background-color: #0b1116; /* Mismo color que el fondo para que se integre mejor */
+        border-bottom: 2px solid var(--primary-blue);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+        
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0; /* MENOS Relleno general */
+        
+        transform: translateY(-20px); 
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-links li {
+        margin: 0; /* Quitamos márgenes externos */
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.05); /* Línea separadora sutil */
+    }
+    
+    /* Quitamos la línea del último elemento */
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 12px 0; /* El espacio lo damos aquí para que sea clicable */
+        font-size: 0.9rem; /* LETRA MÁS PEQUEÑA */
+        font-weight: 500; /* Menos negrita */
+        width: 100%;
+    }
+
+    .nav-links li:hover {
+        background-color: rgba(30, 99, 255, 0.1); /* Efecto azulito al pasar el dedo */
+    }
+    
+    /* El botón de contacto un poco diferente */
+    .nav-btn {
+        background: transparent !important; /* Quitar fondo azul botón */
+        color: var(--primary-blue) !important; /* Letras azules */
+        padding: 12px 0 !important;
+    }
+}

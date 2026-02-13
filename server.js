@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const path = require('path'); // NUEVO: Para encontrar carpetas
+const path = require('path');
+const multer = require('multer'); // NUEVO: Para gestionar archivos
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,8 +13,12 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// --- NUEVO: ENSEÑAR LA PÁGINA WEB ---
-// Le decimos al servidor que la carpeta 'Proyecto_Legal_Final' es pública
+// --- CONFIGURACIÓN DE MULTER (Subida de archivos) ---
+// Usamos memoria para no depender del disco de Render (que se borra)
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// --- ENSEÑAR LA PÁGINA WEB ---
 app.use(express.static('Proyecto_Legal_Final'));
 
 // --- 1. CONEXIÓN A MONGODB ---
@@ -21,12 +26,18 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('🟢 CONECTADO A MONGODB ATLAS'))
     .catch((err) => console.error('🔴 Error Mongo:', err));
 
-// --- 2. MODELO DE PEDIDO ---
+// --- 2. MODELO DE PEDIDO ACTUALIZADO ---
 const PedidoSchema = new mongoose.Schema({
     nombre: String,
     email: String,
     telefono: String,
     direccion: String,
+    // NUEVO: Campo para guardar el archivo
+    documento: {
+        data: Buffer,       // Los datos binarios del archivo
+        contentType: String, // Tipo de archivo (pdf, png, etc)
+        fileName: String    // Nombre original
+    },
     fecha: { type: Date, default: Date.now },
     pagado: { type: Boolean, default: false }
 });
@@ -34,14 +45,38 @@ const Pedido = mongoose.model('Pedido', PedidoSchema);
 
 // --- 3. RUTAS ---
 
-// RUTA MAGICA: Crea el enlace de pago
-app.post('/api/crear-sesion-pago', async (req, res) => {
+// RUTA MAGICA: Crea el enlace de pago Y guarda el archivo
+// 'upload.single' intercepta el archivo que viene del formulario
+app.post('/api/crear-sesion-pago', upload.single('documento'), async (req, res) => {
     try {
-        const datos = req.body;
-        console.log("📦 Procesando pedido para:", datos.nombre);
+        console.log("📦 Procesando pedido...");
+        
+        // En multipart, los textos vienen en req.body y el archivo en req.file
+        const datosTexto = req.body;
+        const archivo = req.file;
 
-        // A) Guardamos el pedido en MongoDB
-        const nuevoPedido = new Pedido(datos);
+        console.log("👤 Cliente:", datosTexto.nombre);
+        console.log("📄 Archivo recibido:", archivo ? archivo.originalname : 'Sin archivo');
+
+        // A) Preparamos el objeto para guardar en Mongo
+        const nuevoPedidoData = {
+            nombre: datosTexto.nombre,
+            email: datosTexto.email,
+            telefono: datosTexto.telefono,
+            direccion: datosTexto.direccion,
+        };
+
+        // Si ha subido archivo, lo añadimos
+        if (archivo) {
+            nuevoPedidoData.documento = {
+                data: archivo.buffer,
+                contentType: archivo.mimetype,
+                fileName: archivo.originalname
+            };
+        }
+
+        // Guardamos en MongoDB
+        const nuevoPedido = new Pedido(nuevoPedidoData);
         await nuevoPedido.save();
 
         // B) Pedimos a Stripe un enlace de pago
@@ -58,7 +93,6 @@ app.post('/api/crear-sesion-pago', async (req, res) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            // OJO: En internet no existe localhost, pero Render lo arreglará solo con esto:
             success_url: `${req.headers.origin}/index.html?pago=exito`,
             cancel_url: `${req.headers.origin}/contacto.html?pago=cancelado`,
         });

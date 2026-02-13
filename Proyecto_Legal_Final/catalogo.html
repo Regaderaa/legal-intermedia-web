@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjetas Digitales - Legal Intermedia</title>
+    <title>Catálogo - Legal Intermedia</title>
     <link rel="icon" type="image/png" href="imagenes/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -21,29 +21,59 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="index.html" style="color: var(--primary-blue);">Inicio</a></li>
+                <li><a href="index.html">Inicio</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li> 
                 <li><a href="innovacion.html">Innovación</a></li> 
                 <li><a href="funciona.html">Cómo Funciona</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="catalogo.html" style="color: var(--primary-blue);">Catálogo</a></li>
                 <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
             </ul>
         </div>
     </nav>
 
-    <header class="hero-section" id="inicio">
-        <div class="overlay"></div> 
-        <div class="container hero-content">
-            <span class="badge-new">NOVEDAD 2026</span>
-            <h1>Sistemas Electrónicos Avanzados</h1>
-            <p class="subtitle">La acreditación náutica profesional en formato inteligente.</p>
-            <p class="hero-desc">Legal Intermedia presenta la nueva generación de identificaciones con verificación QR y tecnología Contactless integrada. Cumple con los estándares de seguridad de la Marina Mercante.</p>
-            <div class="hero-btns">
-                <a href="catalogo.html" class="btn-hero">VER MODELOS</a>
-                <a href="innovacion.html" class="btn-secondary">SABER MÁS</a>
+    <main>
+        
+        <section class="catalog-section" id="modelos">
+            <div class="overlay-blue"></div> 
+            <div class="container relative-content">
+                <h2>Títulos Homologados</h2>
+                <p class="catalog-subtitle">Disponemos de tarjetas adaptadas a todas las titulaciones de recreo vigentes.</p>
+                
+                <div class="cards-grid">
+                    <div class="catalog-item">
+                        <img src="imagenes/per.jpeg" alt="PER" width="100%">
+                        <h3>P.E.R.</h3>
+                        <p>Patrón de Embarcaciones de Recreo</p>
+                    </div>
+
+                    <div class="catalog-item">
+                        <img src="imagenes/pnb.jpeg" alt="PNB" width="100%">
+                        <h3>P.N.B.</h3>
+                        <p>Patrón de Navegación Básica</p>
+                    </div>
+
+                    <div class="catalog-item">
+                        <img src="imagenes/cy.jpeg" alt="CY" width="100%">
+                        <h3>Capitán de Yate</h3>
+                        <p>Máxima titulación náutica</p>
+                    </div>
+
+                    <div class="catalog-item">
+                        <img src="imagenes/py.jpeg" alt="PY" width="100%">
+                        <h3>Patrón de Yate</h3>
+                        <p>Navegación de altura</p>
+                    </div>
+                </div>
+                
+                <div class="catalog-cta">
+                    <a href="contacto.html" class="btn-hero btn-white">SOLICITAR MI TÍTULO</a>
+                </div>
             </div>
-        </div>
-    </header>
+        </section>
+
+    </main>
+
+    <a href="#" class="scroll-top-btn" id="scrollTopBtn">↑</a>
 
     <footer class="main-footer">
         <div class="container footer-grid">
