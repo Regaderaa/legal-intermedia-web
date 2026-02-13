@@ -260,7 +260,8 @@ main, .contact-page { flex: 1; }
     height: 3px;
     margin: 5px auto;
     transition: all 0.3s ease-in-out;
-    background-color: var(--white);
+    background-color: #ffffff !important; /* BLANCO PURO OBLIGATORIO */
+    box-shadow: 0 0 2px rgba(0,0,0,0.5); /* Una pequeña sombra para que resalte más */
 }
 
 /* SOLO PARA MÓVILES (Menor de 768px) - VERSIÓN COMPACTA */
