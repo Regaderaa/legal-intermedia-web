@@ -153,62 +153,123 @@ window.addEventListener("load", () => {
             gsap.to(nosotrosImage, { rotationY: 0, rotationX: 0, ease: "elastic.out(1, 0.3)", duration: 1 });
         });
     }
-// ==========================================
-    // PARTE F: PAGO CON STRIPE (BACKEND CON ARCHIVO)
+
+
     // ==========================================
-    const paymentForm = document.getElementById('payment-form'); 
+    // PARTE F: PAGO INTEGRADO (STRIPE ELEMENTS + APPLE PAY)
+    // ==========================================
 
+    const paymentForm = document.getElementById('payment-form');
+    
+    // Solo ejecutamos esto si estamos en la página de contacto
     if (paymentForm) {
-        paymentForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); 
+        
+        // 1. INICIALIZAR STRIPE (Pon tu CLAVE PÚBLICA aquí, la que empieza por pk_test_...)
+        // OJO: Sustituye esto por tu clave real de Stripe Dashboard
+        const stripe = Stripe("pk_test_51SyIJZAwxzQJK7hJc1LuamuAcyKYTrY1OeQDQVCq2MYa3LfMAkyPYnFcUxdCRAp3HpXAfbXJfCjG7K8fsnhrDZUr00V6g8f5IM"); 
+        
+        let elements;
+        let clientSecret;
 
-            const submitBtn = paymentForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerText;
+        // 2. CARGAR EL FORMULARIO DE PAGO AL ENTRAR
+        async function initialize() {
+            try {
+                // Pedimos al servidor que inicie el proceso
+                const response = await fetch("/api/crear-intento-pago", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                });
+                
+                const data = await response.json();
+                clientSecret = data.clientSecret;
 
-            submitBtn.innerText = "SUBIENDO ARCHIVO...";
-            submitBtn.style.opacity = "0.7";
-            submitBtn.disabled = true;
+                // Configuramos Stripe Elements
+                const appearance = { theme: 'night', labels: 'floating' };
+                elements = stripe.elements({ appearance, clientSecret });
+
+                // Creamos el elemento de pago (Tarjeta + Apple/Google Pay)
+                const paymentElement = elements.create("payment");
+                paymentElement.mount("#payment-element");
+                
+            } catch (error) {
+                console.error("Error al cargar Stripe:", error);
+            }
+        }
+
+        // Llamamos a la función para que arranque
+        initialize();
+
+        // 3. CUANDO EL USUARIO PULSA "PAGAR"
+        paymentForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            setLoading(true);
+
+            // A) Primero validamos que haya rellenado todo
+            const formData = new FormData(paymentForm);
+            
+            // Añadimos el ID de pago a los datos para guardarlo en Mongo
+            // (El ID viene dentro del clientSecret, es la parte antes de '_secret')
+            const paymentIntentId = clientSecret.split('_secret')[0];
+            formData.append('stripeId', paymentIntentId);
 
             try {
-                // 1. Empaquetamos todo el formulario (textos + archivo) automáticamente
-                const formData = new FormData(paymentForm);
-
-                // LLAMADA AL SERVIDOR
-                const respuesta = await fetch('/api/crear-sesion-pago', {
+                // B) Guardamos el archivo y los datos en MongoDB
+                const respuestaMongo = await fetch('/api/guardar-pedido', {
                     method: 'POST',
-                    // NOTA IMPORTANTE: Al usar FormData, NO ponemos 'Content-Type': 'application/json'
-                    // El navegador lo pone solo automáticamente como 'multipart/form-data'
                     body: formData
                 });
+                
+                const infoMongo = await respuestaMongo.json();
 
-                const info = await respuesta.json();
-
-                if (info.status === 'success' && info.url) {
-                    submitBtn.innerText = "REDIRIGIENDO A STRIPE...";
-                    submitBtn.style.backgroundColor = "#10b981";
-                    
-                    // REDIRECCIÓN A STRIPE
-                    window.location.href = info.url; 
-                    
-                } else {
-                    throw new Error('El servidor no devolvió una URL de pago');
+                if (infoMongo.status !== 'success') {
+                    throw new Error("Error al guardar el documento en el servidor.");
                 }
 
-            } catch (error) {
-                console.error("Error de conexión:", error);
-                submitBtn.innerText = "ERROR";
-                submitBtn.style.backgroundColor = "#ef4444"; 
-                alert("❌ Error al procesar el pedido o subir el archivo.");
-                
-                setTimeout(() => {
-                    submitBtn.innerText = originalText;
-                    submitBtn.style.backgroundColor = "";
-                    submitBtn.style.opacity = "1";
-                    submitBtn.disabled = false;
-                }, 3000);
+                // C) Si Mongo ha guardado bien, CONFIRMAMOS EL PAGO en Stripe
+                const { error } = await stripe.confirmPayment({
+                    elements,
+                    confirmParams: {
+                        // A dónde ir cuando el pago sea ÉXITO
+                        return_url: window.location.origin + "/index.html?pago=exito",
+                    },
+                });
+
+                // Si llegamos aquí es que hubo un error (tarjeta rechazada, etc.)
+                if (error) {
+                    showMessage(error.message);
+                }
+
+            } catch (err) {
+                showMessage(err.message);
             }
+
+            setLoading(false);
         });
+
+        // --- Funciones auxiliares visuales ---
+        function showMessage(messageText) {
+            const messageContainer = document.querySelector("#payment-message");
+            messageContainer.classList.remove("hidden");
+            messageContainer.textContent = messageText;
+        }
+
+        function setLoading(isLoading) {
+            const submitBtn = document.querySelector("#submit-button");
+            const spinner = document.querySelector("#spinner");
+            const buttonText = document.querySelector("#button-text");
+            
+            if (isLoading) {
+                submitBtn.disabled = true;
+                spinner.style.display = "inline-block";
+                buttonText.style.display = "none";
+            } else {
+                submitBtn.disabled = false;
+                spinner.style.display = "none";
+                buttonText.style.display = "inline-block";
+            }
+        }
     }
+
 
     // ==========================================
     // PARTE G: MENSAJE DE ÉXITO AL VOLVER DE STRIPE
