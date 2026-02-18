@@ -10,6 +10,10 @@
     --font-main: 'Montserrat', sans-serif;
 }
 
+:root {
+    color-scheme: only light; /* Esto evita que el móvil invierta los colores */
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -260,8 +264,17 @@ main, .contact-page { flex: 1; }
     height: 3px;
     margin: 5px auto;
     transition: all 0.3s ease-in-out;
-    background-color: #ffffff !important; /* BLANCO PURO OBLIGATORIO */
-    box-shadow: 0 0 2px rgba(0,0,0,0.5); /* Una pequeña sombra para que resalte más */
+    
+    /* FORZAR EL BLANCO A LO BRUTO */
+    background-color: #ffffff !important; 
+    background: #ffffff !important;
+    
+    /* Sombras para que destaque si el fondo falla */
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5); 
+    
+    /* Evitar que el navegador invierta los colores */
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
 }
 
 /* SOLO PARA MÓVILES (Menor de 768px) - VERSIÓN COMPACTA */
