@@ -184,7 +184,7 @@ window.addEventListener("load", () => {
                 clientSecret = data.clientSecret;
 
                 // Configuramos Stripe Elements
-                const appearance = { theme: 'night', labels: 'floating' };
+                const appearance = { theme: 'night', labels: 'above' };
                 elements = stripe.elements({ appearance, clientSecret });
 
                 // Creamos el elemento de pago (Tarjeta + Apple/Google Pay)
