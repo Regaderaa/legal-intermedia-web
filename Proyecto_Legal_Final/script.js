@@ -1,62 +1,75 @@
-// Esperamos a que TODA la página cargue para evitar errores
+// ============================================================================
+// ARCHIVO: script.js
+// DESCRIPCIÓN: Este archivo controla toda la interactividad de la página web.
+// Contiene las animaciones visuales (usando la librería GSAP) y la lógica 
+// para procesar el pago seguro con Stripe.
+// Desarrollador: Adrián Regadera
+// ============================================================================
+
+// Esperamos a que TODA la página cargue (imágenes, textos) para evitar errores de animación
 window.addEventListener("load", () => {
     
-    // Registramos el plugin de GSAP (ScrollTrigger)
+    // Registramos la herramienta que nos permite animar cosas al hacer scroll (ScrollTrigger)
     gsap.registerPlugin(ScrollTrigger);
 
-    // ==========================================
-    // PARTE A: LÓGICA SOLO PARA LA PORTADA (INDEX)
-    // ==========================================
-    if (document.querySelector(".hero-section")) {
+    // ========================================================================
+    // SECCIÓN A: ANIMACIONES DE LA PÁGINA DE INICIO (PORTADA)
+    // ========================================================================
+    
+    // Comprobamos si estamos en la página de inicio buscando la clase '.hero-section'
+    const seccionDePortada = document.querySelector(".hero-section");
+    const contenidoPrincipalDeLaPortada = document.querySelector(".hero-content");
+
+    if (seccionDePortada && contenidoPrincipalDeLaPortada) {
         
-        // 1. HERO INTERACTIVO (Ratón)
-        const heroSection = document.querySelector(".hero-section");
-        const heroContent = document.querySelector(".hero-content");
+        // Efecto Parallax: Los elementos se mueven ligeramente cuando movemos el ratón
+        seccionDePortada.addEventListener("mousemove", (eventoDelRaton) => {
+            // Solo aplicamos este efecto en ordenadores (pantallas de más de 768px) para no marear en móviles
+            if (window.innerWidth > 768) {
+                const posicionEjeX = (eventoDelRaton.clientX / window.innerWidth - 0.5) * 20;
+                const posicionEjeY = (eventoDelRaton.clientY / window.innerHeight - 0.5) * 20;
+                gsap.to(contenidoPrincipalDeLaPortada, { x: posicionEjeX, y: posicionEjeY, duration: 1, ease: "power2.out" });
+            }
+        });
 
-        if(heroSection && heroContent) {
-            heroSection.addEventListener("mousemove", (e) => {
-                // Solo si la pantalla es grande para no marear en móvil
-                if (window.innerWidth > 768) {
-                    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-                    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-                    gsap.to(heroContent, { x: x, y: y, duration: 1, ease: "power2.out" });
-                }
-            });
-
-            // Animación de entrada
-            var tl = gsap.timeline();
-            tl.from(".hero-section h1", { y: 50, autoAlpha: 0, duration: 1, ease: "power3.out" })
+        // Animación de entrada: Los textos y botones aparecen flotando al cargar la página
+        var lineaDeTiempoAnimacion = gsap.timeline();
+        lineaDeTiempoAnimacion.from(".hero-section h1", { y: 50, autoAlpha: 0, duration: 1, ease: "power3.out" })
               .from(".subtitle", { y: 30, autoAlpha: 0, duration: 0.8 }, "-=0.6")
               .from(".hero-desc", { y: 20, autoAlpha: 0, duration: 0.8 }, "-=0.6")
               .from(".hero-btns a", { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.2, clearProps: "all" }, "-=0.6");
-        }
     }
 
-    // ==========================================
-    // PARTE B: LÓGICA PARA SCROLL HORIZONTAL (INNOVACIÓN)
-    // ==========================================
-    if (document.querySelector(".horizontal-scroll-section")) {
+    // ========================================================================
+    // SECCIÓN B: EFECTO DE DESPLAZAMIENTO HORIZONTAL (PÁGINA CÓMO FUNCIONA)
+    // ========================================================================
+    const seccionScrollHorizontal = document.querySelector(".horizontal-scroll-section");
+    
+    if (seccionScrollHorizontal) {
         
-        let mm = gsap.matchMedia();
+        // Creamos una regla para que este efecto complejo solo se active en ordenadores
+        let comprobadorDePantalla = gsap.matchMedia();
 
-        mm.add("(min-width: 769px)", () => {
+        comprobadorDePantalla.add("(min-width: 769px)", () => {
             
-            let sections = gsap.utils.toArray(".panel");
+            // Recogemos todos los "paneles" que se van a mover de lado
+            let panelesDeInformacion = gsap.utils.toArray(".panel");
             
-            // Mover los paneles horizontalmente
-            gsap.to(sections, {
-                xPercent: -100 * (sections.length - 1),
+            // Animación principal: Mueve los paneles hacia la izquierda mientras el usuario baja (hace scroll)
+            gsap.to(panelesDeInformacion, {
+                xPercent: -100 * (panelesDeInformacion.length - 1),
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".horizontal-scroll-section",
-                    pin: true,
-                    scrub: 1,
+                    pin: true, // "Clava" la sección en la pantalla hasta que termine la animación
+                    scrub: 1,  // Vincula la animación a la rueda del ratón de forma suave
                     end: "+=3000" 
                 }
             });
 
-            // Mover la tarjeta 3D si existe
-            if (document.querySelector(".card-img-main")) {
+            // Si hay una tarjeta 3D en esta sección, la hacemos rotar mientras el usuario hace scroll
+            const imagenDeTarjeta3D = document.querySelector(".card-img-main");
+            if (imagenDeTarjeta3D) {
                 gsap.to(".card-img-main", {
                     rotationY: -35, rotationX: 15, z: 100, 
                     boxShadow: "30px 60px 100px rgba(0,0,0,0.4)", 
@@ -72,11 +85,11 @@ window.addEventListener("load", () => {
         });
     }
 
-    // ==========================================
-    // PARTE C: OTRAS ANIMACIONES (Pasos, Catálogo, Ventajas)
-    // ==========================================
+    // ========================================================================
+    // SECCIÓN C: ANIMACIONES SECUNDARIAS (Pasos, Catálogo y Ventajas)
+    // ========================================================================
     
-    // 1. STEPS (Animación de pasos)
+    // 1. Animación de los "Pasos" (Aparecen desde abajo)
     if (document.querySelector(".steps-section")) {
         gsap.from(".step-card", {
             scrollTrigger: { trigger: ".steps-section", start: "top 75%", toggleActions: "play none none reverse" },
@@ -84,17 +97,17 @@ window.addEventListener("load", () => {
         });
     }
 
-    // 2. CATÁLOGO
+    // 2. Animación del "Catálogo" (Aparecen en cascada)
     if (document.querySelector(".catalog-item")) {
         gsap.set(".catalog-item", { y: 50, opacity: 0 });
         ScrollTrigger.batch(".catalog-item", {
             start: "top 85%",
-            onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, duration: 0.8, ease: "power2.out", overwrite: true }),
-            once: true
+            onEnter: loteDeElementos => gsap.to(loteDeElementos, { opacity: 1, y: 0, stagger: 0.15, duration: 0.8, ease: "power2.out", overwrite: true }),
+            once: true // Solo se anima la primera vez que los ves
         });
     }
 
-    // 3. VENTAJAS
+    // 3. Animación de "Ventajas" (Efecto de zoom al aparecer)
     if (document.querySelector(".features-section")) {
         gsap.from(".feature-card", {
             scrollTrigger: { trigger: ".features-section", start: "top 80%" },
@@ -102,216 +115,234 @@ window.addEventListener("load", () => {
         });
     }
 
-    // ==========================================
-    // PARTE D: LÓGICA SOLO PARA CONTACTO (VISUAL)
-    // ==========================================
+    // ========================================================================
+    // SECCIÓN D: ANIMACIONES DE LA PÁGINA DE CONTACTO (FORMULARIO)
+    // ========================================================================
     if (document.querySelector(".order-form")) {
-        let contactTl = gsap.timeline();
-        contactTl.from(".contact-header", { y: -30, opacity: 0, duration: 0.8, ease: "power2.out" })
+        // Hacemos que la cabecera, la caja de precio y el formulario entren por separado
+        let lineaDeTiempoContacto = gsap.timeline();
+        lineaDeTiempoContacto.from(".contact-header", { y: -30, opacity: 0, duration: 0.8, ease: "power2.out" })
                  .from(".price-sidebar", { x: -50, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.4")
                  .from(".order-form", { x: 50, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.6");
 
-        const priceBox = document.querySelector(".price-box");
-        if(priceBox) {
-            priceBox.addEventListener("mousemove", (e) => {
-                if (window.innerWidth > 768) { // Solo PC
-                    const rect = priceBox.getBoundingClientRect();
-                    const x = e.clientX - rect.left; 
-                    const y = e.clientY - rect.top;
-                    const xPct = (x / rect.width - 0.5) * 20; 
-                    const yPct = (y / rect.height - 0.5) * -20; 
+        // Efecto de inclinación 3D para la caja del precio cuando pasas el ratón
+        const cajaDelPrecio = document.querySelector(".price-box");
+        if (cajaDelPrecio) {
+            cajaDelPrecio.addEventListener("mousemove", (eventoDelRaton) => {
+                if (window.innerWidth > 768) { // Solo en PC
+                    const dimensionesDeLaCaja = cajaDelPrecio.getBoundingClientRect();
+                    const posicionRatonX = eventoDelRaton.clientX - dimensionesDeLaCaja.left; 
+                    const posicionRatonY = eventoDelRaton.clientY - dimensionesDeLaCaja.top;
+                    const porcentajeGiroX = (posicionRatonX / dimensionesDeLaCaja.width - 0.5) * 20; 
+                    const porcentajeGiroY = (posicionRatonY / dimensionesDeLaCaja.height - 0.5) * -20; 
 
-                    gsap.to(priceBox, { rotationY: xPct, rotationX: yPct, ease: "power1.out", duration: 0.5, transformPerspective: 1000 });
+                    gsap.to(cajaDelPrecio, { rotationY: porcentajeGiroX, rotationX: porcentajeGiroY, ease: "power1.out", duration: 0.5, transformPerspective: 1000 });
                 }
             });
-            priceBox.addEventListener("mouseleave", () => {
-                gsap.to(priceBox, { rotationY: 0, rotationX: 0, ease: "elastic.out(1, 0.3)", duration: 1 });
+            // Al quitar el ratón, la caja vuelve a su sitio original con un rebote
+            cajaDelPrecio.addEventListener("mouseleave", () => {
+                gsap.to(cajaDelPrecio, { rotationY: 0, rotationX: 0, ease: "elastic.out(1, 0.3)", duration: 1 });
             });
         }
     }
 
-    // ==========================================
-    // PARTE E: ANIMACIÓN IMAGEN "NOSOTROS"
-    // ==========================================
-    const nosotrosSection = document.querySelector('.product-showcase');
-    const nosotrosImage = document.querySelector('.product-showcase .card-img-main');
+    // ========================================================================
+    // SECCIÓN E: ANIMACIÓN 3D PARA LA IMAGEN DE "NOSOTROS"
+    // ========================================================================
+    const seccionNosotros = document.querySelector('.product-showcase');
+    const imagenNosotros3D = document.querySelector('.product-showcase .card-img-main');
 
-    if (nosotrosSection && nosotrosImage && window.innerWidth > 768) {
-        nosotrosSection.addEventListener('mousemove', (e) => {
-            const rect = nosotrosSection.getBoundingClientRect();
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top;
-            const xPct = (x / rect.width - 0.5) * 15; 
-            const yPct = (y / rect.height - 0.5) * -15; 
+    // Mismo efecto que la caja de precio: la imagen sigue al ratón
+    if (seccionNosotros && imagenNosotros3D && window.innerWidth > 768) {
+        seccionNosotros.addEventListener('mousemove', (eventoDelRaton) => {
+            const dimensionesSeccion = seccionNosotros.getBoundingClientRect();
+            const posicionRatonX = eventoDelRaton.clientX - dimensionesSeccion.left; 
+            const posicionRatonY = eventoDelRaton.clientY - dimensionesSeccion.top;
+            const porcentajeGiroX = (posicionRatonX / dimensionesSeccion.width - 0.5) * 15; 
+            const porcentajeGiroY = (posicionRatonY / dimensionesSeccion.height - 0.5) * -15; 
 
-            gsap.to(nosotrosImage, { 
-                rotationY: xPct, rotationX: yPct, ease: "power1.out", duration: 0.5, transformPerspective: 1000 
+            gsap.to(imagenNosotros3D, { 
+                rotationY: porcentajeGiroX, rotationX: porcentajeGiroY, ease: "power1.out", duration: 0.5, transformPerspective: 1000 
             });
         });
 
-        nosotrosSection.addEventListener('mouseleave', () => {
-            gsap.to(nosotrosImage, { rotationY: 0, rotationX: 0, ease: "elastic.out(1, 0.3)", duration: 1 });
+        seccionNosotros.addEventListener('mouseleave', () => {
+            gsap.to(imagenNosotros3D, { rotationY: 0, rotationX: 0, ease: "elastic.out(1, 0.3)", duration: 1 });
         });
     }
 
+    // ========================================================================
+    // SECCIÓN F: PASARELA DE PAGO INTEGRADA (STRIPE + APPLE PAY + GOOGLE PAY)
+    // ========================================================================
 
-    // ==========================================
-    // PARTE F: PAGO INTEGRADO (STRIPE ELEMENTS + APPLE PAY)
-    // ==========================================
-
-    const paymentForm = document.getElementById('payment-form');
+    const formularioDeCompra = document.getElementById('payment-form');
     
-    // Solo ejecutamos esto si estamos en la página de contacto
-    if (paymentForm) {
+    // Todo este bloque solo se ejecuta si estamos en la página de contacto (donde está el formulario)
+    if (formularioDeCompra) {
         
-        // 1. INICIALIZAR STRIPE (Pon tu CLAVE PÚBLICA aquí, la que empieza por pk_test_...)
-        // OJO: Sustituye esto por tu clave real de Stripe Dashboard
-        const stripe = Stripe("pk_test_51SyIJZAwxzQJK7hJc1LuamuAcyKYTrY1OeQDQVCq2MYa3LfMAkyPYnFcUxdCRAp3HpXAfbXJfCjG7K8fsnhrDZUr00V6g8f5IM"); 
+        // 1. INICIALIZAR STRIPE CON LA CLAVE DE PRUEBAS
+        // Esta es la llave pública que conecta nuestra web con los servidores de Stripe
+        const conexionStripe = Stripe("pk_test_51SyIJZAwxzQJK7hJc1LuamuAcyKYTrY1OeQDQVCq2MYa3LfMAkyPYnFcUxdCRAp3HpXAfbXJfCjG7K8fsnhrDZUr00V6g8f5IM"); 
         
-        let elements;
-        let clientSecret;
+        let bloqueVisualDeStripe;
+        let codigoSecretoDelPago;
 
-        // 2. CARGAR EL FORMULARIO DE PAGO AL ENTRAR
-        async function initialize() {
+        // 2. CARGAR EL RECUADRO DE PAGO (TARJETA / GOOGLE PAY / APPLE PAY)
+        async function prepararPasarelaDePago() {
             try {
-                // Pedimos al servidor que inicie el proceso
-                const response = await fetch("/api/crear-intento-pago", {
+                // Le pedimos a nuestro propio servidor (server.js) que nos consiga un ticket de pago seguro
+                const respuestaDelServidor = await fetch("/api/crear-intento-pago", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                 });
                 
-                const data = await response.json();
-                clientSecret = data.clientSecret;
+                const datosDelServidor = await respuestaDelServidor.json();
+                codigoSecretoDelPago = datosDelServidor.clientSecret;
 
-                // Configuramos Stripe Elements
-                const appearance = { theme: 'night', labels: 'above' };
-                elements = stripe.elements({ appearance, clientSecret });
+                // Configuramos el diseño oscuro para que pegue con nuestra página web
+                const configuracionDeDiseno = { theme: 'night', labels: 'above' };
+                bloqueVisualDeStripe = conexionStripe.elements({ appearance: configuracionDeDiseno, clientSecret: codigoSecretoDelPago });
 
-                // Creamos el elemento de pago (Tarjeta + Apple/Google Pay)
-                const paymentElement = elements.create("payment");
-                paymentElement.mount("#payment-element");
+                // Inyectamos el bloque de pago en nuestro HTML vacío (<div id="payment-element">)
+                const huecoParaLaTarjeta = bloqueVisualDeStripe.create("payment");
+                huecoParaLaTarjeta.mount("#payment-element");
                 
-            } catch (error) {
-                console.error("Error al cargar Stripe:", error);
+            } catch (errorAlCargarPago) {
+                console.error("Error crítico al intentar cargar la pasarela de Stripe:", errorAlCargarPago);
             }
         }
 
-        // Llamamos a la función para que arranque
-        initialize();
+        // Ejecutamos la función de arriba nada más cargar la página de contacto
+        prepararPasarelaDePago();
 
-        // 3. CUANDO EL USUARIO PULSA "PAGAR"
-        paymentForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            setLoading(true);
+        // 3. QUÉ PASA CUANDO EL CLIENTE PULSA EL BOTÓN AZUL DE "PAGAR 29,90€"
+        formularioDeCompra.addEventListener("submit", async (eventoDeEnvio) => {
+            eventoDeEnvio.preventDefault(); // Evitamos que la página se recargue bruscamente
+            activarRuedaDeCarga(true); // Ponemos el botón en modo "cargando..."
 
-            // A) Primero validamos que haya rellenado todo
-            const formData = new FormData(paymentForm);
+            // Recogemos todos los datos escritos (Nombre, Email, Archivo adjunto)
+            const paqueteDeDatosDelCliente = new FormData(formularioDeCompra);
             
-            // Añadimos el ID de pago a los datos para guardarlo en Mongo
-            // (El ID viene dentro del clientSecret, es la parte antes de '_secret')
-            const paymentIntentId = clientSecret.split('_secret')[0];
-            formData.append('stripeId', paymentIntentId);
+            // Extraemos el identificador único del pago para guardarlo en nuestra base de datos
+            const identificadorDeStripe = codigoSecretoDelPago.split('_secret')[0];
+            paqueteDeDatosDelCliente.append('stripeId', identificadorDeStripe);
 
             try {
-                // B) Guardamos el archivo y los datos en MongoDB
-                const respuestaMongo = await fetch('/api/guardar-pedido', {
+                // PRIMER PASO: Enviar el Título Náutico y los datos a nuestra base de datos (MongoDB)
+                const guardadoEnBaseDeDatos = await fetch('/api/guardar-pedido', {
                     method: 'POST',
-                    body: formData
+                    body: paqueteDeDatosDelCliente
                 });
                 
-                const infoMongo = await respuestaMongo.json();
+                const confirmacionDeGuardado = await guardadoEnBaseDeDatos.json();
 
-                if (infoMongo.status !== 'success') {
-                    throw new Error("Error al guardar el documento en el servidor.");
+                if (confirmacionDeGuardado.status !== 'success') {
+                    throw new Error("Ocurrió un error al guardar el título náutico en la nube.");
                 }
 
-                // C) Si Mongo ha guardado bien, CONFIRMAMOS EL PAGO en Stripe
-                const { error } = await stripe.confirmPayment({
-                    elements,
+                // SEGUNDO PASO: Si se ha guardado bien, procesamos el cobro de la tarjeta con Stripe
+                const { error: errorEnLaTarjeta } = await conexionStripe.confirmPayment({
+                    elements: bloqueVisualDeStripe,
                     confirmParams: {
-                        // A dónde ir cuando el pago sea ÉXITO
+                        // Si el cobro es exitoso, redirigimos al usuario aquí mismo para mostrarle la alerta
                         return_url: window.location.origin + "/index.html?pago=exito",
                     },
                 });
 
-                // Si llegamos aquí es que hubo un error (tarjeta rechazada, etc.)
-                if (error) {
-                    showMessage(error.message);
+                // Si llegamos a esta línea es porque la tarjeta fue rechazada o no tiene fondos
+                if (errorEnLaTarjeta) {
+                    mostrarMensajeDeErrorVisual(errorEnLaTarjeta.message);
                 }
 
-            } catch (err) {
-                showMessage(err.message);
+            } catch (errorGeneral) {
+                mostrarMensajeDeErrorVisual(errorGeneral.message);
             }
 
-            setLoading(false);
+            activarRuedaDeCarga(false); // Quitamos la rueda de carga si hubo un error
         });
 
-        // --- Funciones auxiliares visuales ---
-        function showMessage(messageText) {
-            const messageContainer = document.querySelector("#payment-message");
-            messageContainer.classList.remove("hidden");
-            messageContainer.textContent = messageText;
+        // --- Funciones auxiliares para mostrar la rueda giratoria y los errores en pantalla ---
+        function mostrarMensajeDeErrorVisual(textoDelMensaje) {
+            const contenedorDelError = document.querySelector("#payment-message");
+            contenedorDelError.classList.remove("hidden");
+            contenedorDelError.textContent = textoDelMensaje;
         }
 
-        function setLoading(isLoading) {
-            const submitBtn = document.querySelector("#submit-button");
-            const spinner = document.querySelector("#spinner");
-            const buttonText = document.querySelector("#button-text");
+        function activarRuedaDeCarga(estaCargando) {
+            const botonAzul = document.querySelector("#submit-button");
+            const iconoDeRueda = document.querySelector("#spinner");
+            const textoDelBoton = document.querySelector("#button-text");
             
-            if (isLoading) {
-                submitBtn.disabled = true;
-                spinner.style.display = "inline-block";
-                buttonText.style.display = "none";
+            if (estaCargando) {
+                botonAzul.disabled = true; // Bloqueamos el botón para que no pulse dos veces
+                iconoDeRueda.style.display = "inline-block";
+                textoDelBoton.style.display = "none";
             } else {
-                submitBtn.disabled = false;
-                spinner.style.display = "none";
-                buttonText.style.display = "inline-block";
+                botonAzul.disabled = false;
+                iconoDeRueda.style.display = "none";
+                textoDelBoton.style.display = "inline-block";
             }
         }
     }
 
-
-    // ==========================================
-    // PARTE G: MENSAJE DE ÉXITO AL VOLVER DE STRIPE
-    // ==========================================
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('pago') === 'exito') {
+    // ========================================================================
+    // SECCIÓN G: MENSAJE FINAL DE ÉXITO ("¡PAGO REALIZADO CON ÉXITO!")
+    // ========================================================================
+    // Leemos la URL de arriba del navegador buscando la palabra secreta '?pago=exito'
+    const parametrosURL = new URLSearchParams(window.location.search);
+    
+    if (parametrosURL.get('pago') === 'exito') {
+        // Borramos la palabra secreta de la URL para que quede limpio
         window.history.replaceState({}, document.title, window.location.pathname);
+        
+        // Esperamos 1 segundo y mostramos la alerta de victoria al usuario
         setTimeout(() => {
             alert("✨ ¡PAGO REALIZADO CON ÉXITO! ✨\n\nGracias por confiar en Legal Intermedia.\nTu pedido ha sido procesado correctamente.");
         }, 1000);
     }
 
-    // Refrescar GSAP al final
+    // Actualizamos el motor de animaciones para que calcule bien las posiciones
     ScrollTrigger.refresh();
 });
 
-// ==========================================
-// PARTE H: MENÚ HAMBURGUESA (MÓVIL) - FUERA DEL LOAD
-// ==========================================
-// Esto lo ponemos fuera para que funcione instantáneo sin esperar a que carguen las imágenes
+// ============================================================================
+// SECCIÓN H: MENÚ HAMBURGUESA (MÓVILES) - Lógica Independiente
+// ============================================================================
+// Ejecutamos esto nada más leer el HTML para que el menú del móvil funcione al instante,
+// sin esperar a que carguen las fotos pesadas de la web.
 document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('#mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
+    
+    const iconoMenuMovil = document.querySelector('#mobile-menu'); // Las 3 rayitas
+    const contenedorEnlacesNavegacion = document.querySelector('.nav-links'); // Los enlaces (Inicio, Contacto...)
 
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', function() {
-            menuToggle.classList.toggle('is-active');
-            navLinks.classList.toggle('active');
+    // Si existen ambos elementos en la página actual, le damos vida al menú
+    if (iconoMenuMovil && contenedorEnlacesNavegacion) {
+        iconoMenuMovil.addEventListener('click', function() {
+            // El 'toggle' añade una clase si no la tiene, y se la quita si la tiene (Efecto abrir/cerrar)
+            iconoMenuMovil.classList.toggle('is-active');
+            contenedorEnlacesNavegacion.classList.toggle('active');
         });
     }
     
-    // ==========================================
-    // PARTE I: BOTÓN VOLVER ARRIBA
-    // ==========================================
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    if (scrollTopBtn) {
+    // ========================================================================
+    // SECCIÓN I: BOTÓN "VOLVER ARRIBA" (El círculo de la esquina inferior derecha)
+    // ========================================================================
+    const botonSubirArriba = document.getElementById("scrollTopBtn");
+    
+    if (botonSubirArriba) {
+        // Vigilamos cuánto ha bajado el usuario en la página
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) { scrollTopBtn.classList.add("show"); }
-            else { scrollTopBtn.classList.remove("show"); }
+            // Si ha bajado más de 300 píxeles, enseñamos el botón
+            if (window.scrollY > 300) { 
+                botonSubirArriba.classList.add("show"); 
+            } else { 
+                botonSubirArriba.classList.remove("show"); 
+            }
         });
-        scrollTopBtn.addEventListener("click", (e) => {
-            e.preventDefault();
+        
+        // Cuando hace clic en el botón, le subimos suavemente al principio de la web
+        botonSubirArriba.addEventListener("click", (eventoDeClic) => {
+            eventoDeClic.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     }

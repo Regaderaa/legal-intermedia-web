@@ -1,87 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - Legal Intermedia</title>
-    <link rel="icon" type="image/png" href="imagenes/favicon.png">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Catálogo - Legal Intermedia</title> <link rel="icon" type="image/png" href="imagenes/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="pagina-del-catalogo">
 
-    <nav class="main-nav">
-        <div class="container nav-container">
-            <div class="logo">LEGAL INTERMEDIA</div>
+    <nav class="barra-de-navegacion-principal">
+        <div class="contenedor-centrado caja-de-la-barra-de-navegacion">
             
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="texto-del-logotipo-de-la-empresa">LEGAL INTERMEDIA</div>
+            
+            <div class="boton-de-tres-rayas-para-moviles" id="boton-abrir-menu-movil">
+                <span class="raya-del-boton"></span>
+                <span class="raya-del-boton"></span>
+                <span class="raya-del-boton"></span>
             </div>
 
-            <ul class="nav-links">
+            <ul class="lista-de-enlaces-del-menu">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li> 
                 <li><a href="innovacion.html">Innovación</a></li> 
                 <li><a href="funciona.html">Cómo Funciona</a></li>
                 <li><a href="catalogo.html" style="color: var(--primary-blue);">Catálogo</a></li>
-                <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
+                <li><a href="contacto.html" class="boton-destacado-del-menu">Contacto</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
         
-        <section class="catalog-section" id="modelos">
-            <div class="overlay-blue"></div> 
-            <div class="container relative-content">
-                <h2>Títulos Homologados</h2>
-                <p class="catalog-subtitle">Disponemos de tarjetas adaptadas a todas las titulaciones de recreo vigentes.</p>
+        <section class="seccion-del-catalogo-de-titulos" id="modelos">
+            
+            <div class="capa-azul-superpuesta-al-fondo"></div> 
+            
+            <div class="contenedor-centrado contenido-por-encima-del-fondo">
                 
-                <div class="cards-grid">
-                    <div class="catalog-item">
+                <h2>Títulos Homologados</h2>
+                <p class="subtitulo-del-catalogo">Disponemos de tarjetas adaptadas a todas las titulaciones de recreo vigentes.</p>
+                
+                <div class="cuadricula-de-tarjetas-de-titulos">
+                    
+                    <div class="tarjeta-individual-del-catalogo">
                         <img src="imagenes/per.jpeg" alt="PER" width="100%">
                         <h3>P.E.R.</h3>
                         <p>Patrón de Embarcaciones de Recreo</p>
                     </div>
 
-                    <div class="catalog-item">
+                    <div class="tarjeta-individual-del-catalogo">
                         <img src="imagenes/pnb.jpeg" alt="PNB" width="100%">
                         <h3>P.N.B.</h3>
                         <p>Patrón de Navegación Básica</p>
                     </div>
 
-                    <div class="catalog-item">
+                    <div class="tarjeta-individual-del-catalogo">
                         <img src="imagenes/cy.jpeg" alt="CY" width="100%">
                         <h3>Capitán de Yate</h3>
                         <p>Máxima titulación náutica</p>
                     </div>
 
-                    <div class="catalog-item">
+                    <div class="tarjeta-individual-del-catalogo">
                         <img src="imagenes/py.jpeg" alt="PY" width="100%">
                         <h3>Patrón de Yate</h3>
                         <p>Navegación de altura</p>
                     </div>
                 </div>
                 
-                <div class="catalog-cta">
-                    <a href="contacto.html" class="btn-hero btn-white">SOLICITAR MI TÍTULO</a>
+                <div class="caja-del-boton-de-solicitud">
+                    <a href="contacto.html" class="boton-gigante boton-color-blanco">SOLICITAR MI TÍTULO</a>
                 </div>
+
             </div>
         </section>
 
     </main>
 
-    <a href="#" class="scroll-top-btn" id="scrollTopBtn">↑</a>
+    <a href="#" class="boton-para-subir-arriba" id="identificador-boton-subir">↑</a>
 
-    <footer class="main-footer">
-        <div class="container footer-grid">
-            <div class="footer-col">
+    <footer class="pie-de-pagina-de-la-web">
+        <div class="contenedor-centrado cuadricula-de-columnas-del-pie-de-pagina">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>LEGAL INTERMEDIA</h4>
                 <p>Digitalizando la seguridad marítima. Servicios de confianza certificados para profesionales del mar.</p>
             </div>
-            <div class="footer-col">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Enlaces</h4>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
@@ -89,7 +94,8 @@
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Legal</h4>
                 <ul>
                     <li><a href="legal.html">Política de Privacidad</a></li>
@@ -97,20 +103,23 @@
                     <li><a href="#">Cookies</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Contacto</h4>
                 <p>info@legalintermedia.com</p>
                 <p>+34 900 000 000</p>
                 <p>Cáceres, España</p>
             </div>
         </div>
-        <div class="footer-bottom">
+        
+        <div class="franja-inferior-del-pie-de-pagina">
             <p>&copy; 2026 Legal Intermedia. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
     <script src="script.js"></script>
 
 </body>

@@ -1,82 +1,82 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> 
+<html lang="es"> 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Legal Intermedia</title>
-    <link rel="icon" type="image/png" href="imagenes/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Contacto - Legal Intermedia</title> <link rel="icon" type="image/png" href="imagenes/favicon.png"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="style.css"> 
     
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
-        /* Ocultar elementos */
-        .hidden { display: none; }
+        /* Creamos una clase rápida para ocultar cosas. La usaremos desde JavaScript para esconder mensajes de error si no hacen falta */
+        .ocultar-este-elemento { display: none; }
         
-        /* Spinner de carga (Ruedecita girando) */
-        .spinner {
+        /* Diseñamos la ruedecita blanca que da vueltas dentro del botón de "PAGAR" mientras se procesa el cobro */
+        .ruedecita-animada-de-carga {
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top: 3px solid #ffffff;
             width: 20px;
             height: 20px;
-            -webkit-animation: spin 1s linear infinite; /* Safari */
-            animation: spin 1s linear infinite;
+            -webkit-animation: girar-ruedecita 1s linear infinite; /* Para que funcione en móviles Apple antiguos */
+            animation: girar-ruedecita 1s linear infinite;
             display: inline-block;
             vertical-align: middle;
             margin-right: 10px;
         }
         
-        @keyframes spin {
+        /* Le decimos a la ruedecita cómo tiene que girar (de 0 grados a 360 grados sin parar) */
+        @keyframes girar-ruedecita {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
         
-        /* Ajuste para que el formulario de Stripe se vea bien */
-        #payment-element {
+        /* Le damos un poco de espacio por abajo al hueco de la tarjeta para que no se pegue al botón de pago */
+        #hueco-para-la-tarjeta-de-stripe {
             margin-bottom: 24px;
         }
     </style>
 </head>
-<body class="contact-page">
 
-    <nav class="main-nav">
-        <div class="container nav-container">
-            <div class="logo">LEGAL INTERMEDIA</div>
+<body class="pagina-del-formulario-de-contacto">
+
+    <nav class="barra-de-navegacion-principal">
+        <div class="contenedor-centrado caja-de-la-barra-de-navegacion">
             
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="texto-del-logotipo-de-la-empresa">LEGAL INTERMEDIA</div>
+            
+            <div class="boton-de-tres-rayas-para-moviles" id="boton-abrir-menu-movil">
+                <span class="raya-del-boton"></span>
+                <span class="raya-del-boton"></span>
+                <span class="raya-del-boton"></span>
             </div>
 
-            <ul class="nav-links">
+            <ul class="lista-de-enlaces-del-menu">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="nosotros.html">Nosotros</a></li> 
                 <li><a href="innovacion.html">Innovación</a></li> 
                 <li><a href="funciona.html">Cómo Funciona</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
+                <li><a href="contacto.html" class="boton-destacado-del-menu">Contacto</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
-        <div class="container" style="padding-top: 140px; padding-bottom: 60px;">
+        <div class="contenedor-centrado" style="padding-top: 140px; padding-bottom: 60px;">
             
-            <div class="contact-header" style="text-align: center;">
+            <div class="cabecera-de-la-zona-de-compra" style="text-align: center;">
                 <h2>Solicita tu Identificación Oficial</h2>
                 <p>Pago seguro integrado. Envío urgente certificado.</p>
             </div>
 
-            <div class="form-wrapper">
+            <div class="caja-que-envuelve-el-formulario-y-el-precio">
                 
-                <div class="price-sidebar">
-                    <div class="price-box">
-                        <span class="price">29,90€</span>
-                        <span class="detail">IVA y Envío Incluidos</span>
-                        <ul class="price-features">
+                <div class="columna-lateral-con-el-precio">
+                    <div class="tarjeta-visual-del-resumen-de-precio">
+                        <span class="texto-gigante-del-precio">29,90€</span>
+                        <span class="texto-pequeno-de-impuestos">IVA y Envío Incluidos</span>
+                        <ul class="lista-de-ventajas-incluidas">
                             <li>✓ Tarjeta PVC Certificada</li>
                             <li>✓ Chip NFC Programado</li>
                             <li>✓ Verificación QR Online</li>
@@ -85,29 +85,29 @@
                     </div>
                 </div>
 
-                <form id="payment-form" class="order-form" enctype="multipart/form-data">
+                <form id="formulario-de-datos-del-cliente" class="estilos-generales-del-formulario" enctype="multipart/form-data">
                     
-                    <div class="form-group">
+                    <div class="bloque-de-campo-del-formulario">
                         <label>Nombre y Apellidos (Titular)</label>
                         <input type="text" name="nombre" placeholder="Tal como aparece en su título oficial" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="bloque-de-campo-del-formulario">
                         <label>Correo Electrónico</label>
                         <input type="email" name="email" placeholder="Para recibir la confirmación" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="bloque-de-campo-del-formulario">
                         <label>Teléfono Móvil</label>
                         <input type="tel" name="telefono" placeholder="+34 600 000 000" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="bloque-de-campo-del-formulario">
                         <label>Dirección de Envío Completa</label>
                         <textarea name="direccion" rows="3" placeholder="Calle, número, piso, puerta, código postal y localidad." required></textarea>
                     </div>
 
-                    <div class="form-group" style="background: rgba(30,99,255,0.05); padding: 15px; border-radius: 6px; border: 1px dashed var(--primary-blue); margin-bottom: 30px;">
+                    <div class="bloque-de-campo-del-formulario" style="background: rgba(30,99,255,0.05); padding: 15px; border-radius: 6px; border: 1px dashed var(--primary-blue); margin-bottom: 30px;">
                         <label style="color: var(--primary-blue); font-weight: bold;">Adjuntar Título Náutico (PDF o Foto)</label>
                         <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px;">Necesario para verificar sus atribuciones.</p>
                         <input type="file" name="documento" accept=".pdf, .jpg, .jpeg, .png" required style="border: none; padding-left: 0;">
@@ -118,16 +118,16 @@
                         <p style="margin: 0;">Para usar <strong>Apple Pay</strong>, abre esta web desde el navegador <strong>Safari</strong><br><br>. Para usar <strong>Google Pay</strong>, utiliza <strong>Google Chrome</strong>. <br><span style="font-size: 0.8rem; opacity: 0.8;">(Si no aparecen los botones, introduce tu tarjeta manualmente a continuación).</span></p>
                     </div>
 
-                    <div id="payment-element"></div>
+                    <div id="hueco-para-la-tarjeta-de-stripe"></div>
 
-                    <div id="payment-message" class="hidden" style="color: #ef4444; margin-bottom: 15px; font-size: 0.9rem; text-align: center;"></div>
+                    <div id="caja-de-mensajes-de-error-de-pago" class="ocultar-este-elemento" style="color: #ef4444; margin-bottom: 15px; font-size: 0.9rem; text-align: center;"></div>
 
-                    <button type="submit" class="cta-button" id="submit-button">
-                        <div class="spinner hidden" id="spinner"></div>
-                        <span id="button-text">PAGAR 29,90€</span>
+                    <button type="submit" class="boton-gigante-de-confirmacion" id="boton-para-procesar-el-pago">
+                        <div class="ruedecita-animada-de-carga ocultar-este-elemento" id="icono-de-cargando"></div>
+                        <span id="texto-interior-del-boton-de-pago">PAGAR 29,90€</span>
                     </button>
 
-                    <div class="consent-box">
+                    <div class="caja-para-aceptar-politicas-legales">
                         <input type="checkbox" required> He leído y acepto la <a href="legal.html">Política de Privacidad</a>.
                     </div>
                 </form>
@@ -136,13 +136,15 @@
         </div>
     </main>
 
-    <footer class="main-footer">
-        <div class="container footer-grid">
-            <div class="footer-col">
+    <footer class="pie-de-pagina-de-la-web">
+        <div class="contenedor-centrado cuadricula-de-columnas-del-pie-de-pagina">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>LEGAL INTERMEDIA</h4>
                 <p>Digitalizando la seguridad marítima. Servicios de confianza certificados para profesionales del mar.</p>
             </div>
-            <div class="footer-col">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Enlaces</h4>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
@@ -150,7 +152,8 @@
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Legal</h4>
                 <ul>
                     <li><a href="legal.html">Política de Privacidad</a></li>
@@ -158,20 +161,23 @@
                     <li><a href="#">Cookies</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Contacto</h4>
                 <p>info@legalintermedia.com</p>
                 <p>+34 900 000 000</p>
                 <p>Cáceres, España</p>
             </div>
         </div>
-        <div class="footer-bottom">
+        
+        <div class="franja-inferior-del-pie-de-pagina">
             <p>&copy; 2026 Legal Intermedia. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
     <script src="script.js"></script>
 
 </body>

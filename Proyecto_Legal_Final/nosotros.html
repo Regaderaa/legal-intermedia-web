@@ -9,73 +9,73 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        .about-section { padding: 160px 0 100px 0; background: var(--dark-bg); }
-        .about-content { max-width: 800px; margin: 0 auto; }
-        .about-text { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.8; }
-        .highlight-box { 
+        .seccion-sobre-nosotros { padding: 160px 0 100px 0; background: var(--dark-bg); }
+        .contenido-sobre-nosotros { max-width: 800px; margin: 0 auto; }
+        .texto-sobre-nosotros { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.8; }
+        .caja-de-texto-destacado { 
             background: rgba(30, 99, 255, 0.1); 
             border-left: 4px solid var(--primary-blue); 
             padding: 30px; 
             margin: 40px 0;
             border-radius: 0 8px 8px 0;
         }
-        .highlight-box h3 { color: var(--white); margin-bottom: 15px; }
-        .highlight-box p { margin-bottom: 0; }
+        .caja-de-texto-destacado h3 { color: var(--white); margin-bottom: 15px; }
+        .caja-de-texto-destacado p { margin-bottom: 0; }
     </style>
 </head>
 <body>
 
-    <nav class="main-nav">
-        <div class="container nav-container">
-            <div class="logo">LEGAL INTERMEDIA</div>
+    <nav class="barra-de-navegacion-principal">
+        <div class="contenedor-centrado caja-de-la-barra-de-navegacion">
+            <div class="texto-del-logotipo-de-la-empresa">LEGAL INTERMEDIA</div>
             
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="boton-de-tres-rayas-para-moviles" id="boton-abrir-menu-movil">
+                <span class="raya-del-boton"></span>
+                <span class="raya-del-boton"></span>
+                <span class="raya-del-boton"></span>
             </div>
 
-            <ul class="nav-links">
+            <ul class="lista-de-enlaces-del-menu">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="nosotros.html" style="color: var(--primary-blue);">Nosotros</a></li> 
                 <li><a href="innovacion.html">Innovación</a></li> 
                 <li><a href="funciona.html">Cómo Funciona</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="contacto.html" class="nav-btn">Contacto</a></li>
+                <li><a href="contacto.html" class="boton-destacado-del-menu">Contacto</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
         
-        <section class="about-section">
-            <div class="container">
-                <div class="about-content">
-                    <span class="badge-new" style="margin-bottom: 20px;">NUESTRA MISIÓN</span>
+        <section class="seccion-sobre-nosotros">
+            <div class="contenedor-centrado">
+                <div class="contenido-sobre-nosotros">
+                    <span class="etiqueta-de-novedad" style="margin-bottom: 20px;">NUESTRA MISIÓN</span>
                     <h2>Digitalizando la Seguridad Marítima</h2>
                     
-                    <p class="about-text">
+                    <p class="texto-sobre-nosotros">
                         En <strong>Legal Intermedia</strong>, nos dedicamos a modernizar la burocracia náutica. Nacimos con un objetivo claro: eliminar el papel mojado y sustituirlo por tecnología inteligente y duradera.
                     </p>
 
-                    <p class="about-text">
+                    <p class="texto-sobre-nosotros">
                         Somos un equipo de ingenieros y expertos legales apasionados por el mar. Entendemos que en el siglo XXI, llevar un título de cartón en un entorno húmedo no tiene sentido. Por eso hemos desarrollado el primer estándar de identificación digital homologado.
                     </p>
 
-                    <div class="highlight-box">
+                    <div class="caja-de-texto-destacado">
                         <h3>Tecnología y Legalidad</h3>
-                        <p class="about-text">
+                        <p class="texto-sobre-nosotros">
                             No solo fabricamos tarjetas; creamos un ecosistema seguro. Nuestros chips NFC y códigos QR dinámicos permiten a las autoridades verificar titulaciones en tiempo real, combatiendo el fraude y facilitando la vida al navegante.
                         </p>
                     </div>
 
                     <h3 style="color: white; margin-top: 50px; margin-bottom: 20px;">¿Por qué elegirnos?</h3>
-                    <p class="about-text">
+                    <p class="texto-sobre-nosotros">
                         Trabajamos bajo los más estrictos estándares de la Marina Mercante. Cada tarjeta que emitimos pasa por un doble proceso de verificación jurídica y control de calidad técnico. Garantizamos que tu título estará seguro, accesible y protegido contra los elementos.
                     </p>
 
                     <div style="margin-top: 50px; text-align: center;">
-                        <a href="contacto.html" class="btn-hero">CONTACTAR CON EL EQUIPO</a>
+                        <a href="contacto.html" class="boton-principal-destacado">CONTACTAR CON EL EQUIPO</a>
                     </div>
 
                 </div>
@@ -84,15 +84,15 @@
 
     </main>
 
-    <a href="#" class="scroll-top-btn" id="scrollTopBtn">↑</a>
+    <a href="#" class="boton-para-subir-arriba" id="identificador-boton-subir">↑</a>
 
-    <footer class="main-footer">
-        <div class="container footer-grid">
-            <div class="footer-col">
+    <footer class="pie-de-pagina-de-la-web">
+        <div class="contenedor-centrado cuadricula-de-columnas-del-pie-de-pagina">
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>LEGAL INTERMEDIA</h4>
                 <p>Digitalizando la seguridad marítima. Servicios de confianza certificados para profesionales del mar.</p>
             </div>
-            <div class="footer-col">
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Enlaces</h4>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
@@ -100,7 +100,7 @@
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Legal</h4>
                 <ul>
                     <li><a href="legal.html">Política de Privacidad</a></li>
@@ -108,14 +108,14 @@
                     <li><a href="#">Cookies</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            <div class="columna-individual-del-pie-de-pagina">
                 <h4>Contacto</h4>
                 <p>info@legalintermedia.com</p>
                 <p>+34 900 000 000</p>
                 <p>Cáceres, España</p>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="franja-inferior-del-pie-de-pagina">
             <p>&copy; 2026 Legal Intermedia. Todos los derechos reservados.</p>
         </div>
     </footer>

@@ -1,223 +1,376 @@
-/* VARIABLES */
+/* // ============================================================================
+// ARCHIVO: style.css
+// DESCRIPCIÓN: Este es el archivo de estilos visuales. Aquí definimos los colores,
+// los tamaños de letra, los márgenes y cómo se coloca cada elemento en la pantalla.
+// Básicamente, es la "pintura y decoración" de nuestra página web.
+// Desarrollador: Adrián Regadera
+// ============================================================================ 
+*/
+
+/* // ============================================================================
+// 1. VARIABLES GLOBALES (Nuestra paleta de colores y tipos de letra)
+// Al guardar los colores aquí, si un día queremos cambiar el azul por rojo,
+// solo tenemos que cambiarlo en esta línea y se aplicará a toda la web.
+// ============================================================================ 
+*/
 :root {
-    --primary-blue: #1e63ff;
-    --dark-bg: #0b1116; 
-    --card-bg: #151e29;
-    --footer-bg: #05080a;
-    --text-light: #f0f0f0;
-    --text-muted: #94a3b8;
-    --white: #ffffff;
-    --font-main: 'Montserrat', sans-serif;
+    --primary-blue: #1e63ff; /* Azul principal que usamos en botones y textos destacados */
+    --dark-bg: #0b1116; /* Color de fondo casi negro para el cuerpo de la web */
+    --card-bg: #151e29; /* Un azul muy oscuro para el fondo de las tarjetas */
+    --footer-bg: #05080a; /* Un negro aún más oscuro para el pie de página */
+    --text-light: #f0f0f0; /* Blanco roto para que los textos principales se lean bien */
+    --text-muted: #94a3b8; /* Gris azulado para textos secundarios o menos importantes */
+    --white: #ffffff; /* Blanco puro */
+    --font-main: 'Montserrat', sans-serif; /* El tipo de letra oficial de la web */
 }
 
+/* Evitamos que los teléfonos móviles inviertan nuestros colores oscuros si el usuario tiene el "Modo Oscuro" activado en su móvil */
 :root {
     color-scheme: only light; /* Esto evita que el móvil invierta los colores */
 }
 
+/* // ============================================================================
+// 2. CONFIGURACIÓN BÁSICA PARA TODA LA WEB
+// ============================================================================ 
+*/
+/* Quitamos los márgenes que traen los navegadores por defecto para que todo quede pegado a los bordes */
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: var(--font-main);
-    background-color: var(--dark-bg);
-    color: var(--text-light);
-    overflow-x: hidden;
+    font-family: var(--font-main); /* Aplicamos el tipo de letra Montserrat */
+    background-color: var(--dark-bg); /* Pintamos el fondo de oscuro */
+    color: var(--text-light); /* Pintamos las letras de blanco roto */
+    overflow-x: hidden; /* Evitamos que la web se pueda mover hacia los lados (scroll horizontal indeseado) */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    line-height: 1.6;
+    min-height: 100vh; /* Obligamos a que la web ocupe siempre, como mínimo, el 100% de la altura de la pantalla */
+    line-height: 1.6; /* Separamos un poco las líneas de texto para que se lean mejor */
 }
 
+/* Damos un margen por abajo a los títulos (h2) y a los párrafos (p) para que no se apelotonen */
 h2 { margin-bottom: 40px !important; } 
 p { margin-bottom: 25px; } 
 
-main, .contact-page { flex: 1; }
+/* Hacemos que la zona principal ocupe todo el espacio libre, empujando el footer hacia abajo */
+main, .pagina-del-formulario-de-contacto { flex: 1; }
 
-/* NAVEGACIÓN */
-.main-nav {
-    position: fixed; top: 0; width: 100%;
-    background: rgba(11, 17, 22, 0.95);
-    padding: 20px 0; z-index: 1000;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
+
+/* // ============================================================================
+// 3. LA BARRA DE NAVEGACIÓN (EL MENÚ DE ARRIBA)
+// ============================================================================ 
+*/
+.barra-de-navegacion-principal {
+    position: fixed; top: 0; width: 100%; /* La dejamos fija arriba del todo aunque hagamos scroll hacia abajo */
+    background: rgba(11, 17, 22, 0.95); /* Color oscuro casi opaco */
+    padding: 20px 0; z-index: 1000; /* Le damos prioridad 1000 para que siempre flote por encima de las fotos y textos */
+    border-bottom: 1px solid rgba(255,255,255,0.05); /* Una línea súper fina y sutil por abajo */
+    backdrop-filter: blur(10px); /* Efecto cristal: difumina lo que quede por detrás del menú */
 }
-.nav-container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: 700; font-size: 1.1rem; color: var(--white); letter-spacing: 2px; }
-.nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-.nav-links a:hover { color: var(--primary-blue); }
-.nav-btn { background: var(--primary-blue); color: white !important; padding: 10px 25px; border-radius: 4px; }
 
-/* CONTAINER */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+/* Caja que centra los elementos del menú (logo a la izquierda, enlaces a la derecha) */
+.caja-de-la-barra-de-navegacion { display: flex; justify-content: space-between; align-items: center; }
 
-/* HERO */
-.hero-section {
-    height: 100vh; position: relative;
+/* Diseño de las letras de nuestro logo */
+.texto-del-logotipo-de-la-empresa { font-weight: 700; font-size: 1.1rem; color: var(--white); letter-spacing: 2px; }
+
+/* Separamos los enlaces del menú y les quitamos los puntos de viñeta por defecto */
+.lista-de-enlaces-del-menu { list-style: none; display: flex; gap: 30px; }
+
+/* Diseño de los enlaces (Inicio, Contacto, etc.): blancos, en mayúsculas y en negrita */
+.lista-de-enlaces-del-menu a { text-decoration: none; color: var(--text-light); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+
+/* Cuando el usuario pasa el ratón por encima del enlace, se pone azul */
+.lista-de-enlaces-del-menu a:hover { color: var(--primary-blue); }
+
+/* El botón de Contacto del menú tiene un diseño especial con fondo azul para que destaque más */
+.boton-destacado-del-menu { background: var(--primary-blue); color: white !important; padding: 10px 25px; border-radius: 4px; }
+
+
+/* // ============================================================================
+// 4. EL CONTENEDOR PRINCIPAL
+// Esta clase la usamos en casi todos lados para que el contenido no se pegue 
+// a los bordes de la pantalla y quede centradito.
+// ============================================================================ 
+*/
+.contenedor-centrado { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+
+/* // ============================================================================
+// 5. LA PORTADA (HERO SECTION)
+// Es lo primero que ve el cliente al entrar en la página web.
+// ============================================================================ 
+*/
+.seccion-principal-de-portada {
+    height: 100vh; position: relative; /* Ocupa el 100% de la altura de la pantalla */
     display: flex; align-items: center; justify-content: center; text-align: center;
-    background-image: url('imagenes/fondo_puente.jpg');
-    background-size: cover; background-position: center; background-attachment: fixed;
+    background-image: url('imagenes/fondo_puente.jpg'); /* Ponemos la foto del barco de fondo */
+    background-size: cover; background-position: center; background-attachment: fixed; /* Hacemos que la foto cubra toda la pantalla sin achatarse y crea un efecto chulo donde la foto se queda quieta al hacer scroll */
 }
-.overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 22, 0.85); z-index: 1; }
-.hero-content { position: relative; z-index: 2; max-width: 900px;}
 
-.badge-new {
+/* Una capa oscura transparente que ponemos encima de la foto para que las letras blancas se lean bien */
+.capa-oscura-superpuesta { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 22, 0.85); z-index: 1; }
+
+/* El texto de la portada (tiene que ir por encima de la capa oscura, por eso le damos z-index 2) */
+.contenido-principal-de-la-portada { position: relative; z-index: 2; max-width: 900px;}
+
+/* Estilo para la etiqueta pequeñita que dice "NOVEDAD 2026" */
+.etiqueta-de-novedad {
     background: rgba(30, 99, 255, 0.2); color: var(--primary-blue);
     padding: 5px 15px; border-radius: 50px; border: 1px solid var(--primary-blue);
     font-size: 0.8rem; font-weight: bold; letter-spacing: 1px;
     display: inline-block; margin-bottom: 25px;
 }
-.hero-section h1 { font-size: 3.5rem; font-weight: 700; color: var(--white); margin-bottom: 25px; line-height: 1.2; }
-.subtitle { font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 25px; font-weight: 500; }
-.hero-desc { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; }
-.hero-btns { display: flex; gap: 20px; justify-content: center; }
-.btn-hero { display: inline-block; padding: 15px 40px; background: var(--primary-blue); color: white; text-decoration: none; font-weight: 700; border-radius: 4px; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-.btn-secondary { display: inline-block; padding: 15px 40px; background: transparent; border: 2px solid var(--white); color: white; text-decoration: none; font-weight: 700; border-radius: 4px; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-.btn-hero:hover { background: #164bcd; transform: translateY(-2px); }
-.btn-secondary:hover { background: var(--white); color: var(--dark-bg); }
 
-/* SECCIONES GENERALES */
-.product-showcase { padding: 140px 0; overflow: visible; background: var(--dark-bg); }
-.product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; }
+/* Tamaños de letra de los textos gigantes de la portada */
+.seccion-principal-de-portada h1 { font-size: 3.5rem; font-weight: 700; color: var(--white); margin-bottom: 25px; line-height: 1.2; }
+.subtitulo-de-la-portada { font-size: 1.4rem; color: var(--primary-blue); margin-bottom: 25px; font-weight: 500; }
+.descripcion-de-la-portada { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; }
 
-/* SCROLL HORIZONTAL */
-.horizontal-scroll-section {
+/* Los botones de la portada */
+.caja-de-botones-de-la-portada { display: flex; gap: 20px; justify-content: center; }
+
+/* Botón Azul sólido */
+.boton-principal-destacado { display: inline-block; padding: 15px 40px; background: var(--primary-blue); color: white; text-decoration: none; font-weight: 700; border-radius: 4px; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+
+/* Botón con borde blanco transparente */
+.boton-secundario-transparente { display: inline-block; padding: 15px 40px; background: transparent; border: 2px solid var(--white); color: white; text-decoration: none; font-weight: 700; border-radius: 4px; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+
+/* Efectos cuando pasas el ratón por encima de los botones (Hacen un pequeño saltito hacia arriba) */
+.boton-principal-destacado:hover { background: #164bcd; transform: translateY(-2px); }
+.boton-secundario-transparente:hover { background: var(--white); color: var(--dark-bg); }
+
+
+/* // ============================================================================
+// 6. SECCIONES DE INFORMACIÓN Y CATÁLOGO
+// ============================================================================ 
+*/
+.escaparate-de-productos { padding: 140px 0; overflow: visible; background: var(--dark-bg); }
+.cuadricula-de-productos { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; }
+
+
+/* // ============================================================================
+// 7. EFECTO DE DESPLAZAMIENTO HORIZONTAL (PÁGINA INNOVACIÓN)
+// Este código hace magia para que la página parezca que se mueve de lado.
+// ============================================================================ 
+*/
+.seccion-de-desplazamiento-horizontal {
     width: 100%; height: 100vh; overflow: hidden; 
     background-image: url('imagenes/fondo_horizontal.jpg');
     background-size: cover; background-position: center; background-attachment: fixed;
     position: relative;
 }
-.horizontal-scroll-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 22, 0.4); pointer-events: none; z-index: 0; }
-.horizontal-wrapper { display: flex; width: 300%; height: 100%; position: relative; z-index: 2; }
-.panel { width: 100vw; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0 50px; border-right: 1px solid rgba(255,255,255,0.05); }
-.product-grid-horizontal { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; }
-.features-horizontal-layout { display: flex; gap: 60px; justify-content: center; align-items: center; }
+/* Le damos oscuridad a la foto de fondo */
+.seccion-de-desplazamiento-horizontal::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 17, 22, 0.4); pointer-events: none; z-index: 0; }
 
-/* TARJETAS */
-.info-block-card {
+/* Hacemos que el contenedor mida un 300% del ancho de la pantalla (porque son 3 paneles) */
+.envoltorio-horizontal { display: flex; width: 300%; height: 100%; position: relative; z-index: 2; }
+
+/* Cada uno de los 3 paneles horizontales medirá exactamente 1 pantalla de ancho (100vw) */
+.panel-individual { width: 100vw; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0 50px; border-right: 1px solid rgba(255,255,255,0.05); }
+
+/* Distribución en rejilla para el contenido de los paneles horizontales */
+.cuadricula-de-productos-horizontal { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; }
+.disposicion-horizontal-de-caracteristicas { display: flex; gap: 60px; justify-content: center; align-items: center; }
+
+
+/* // =======================================================
+// 8. TARJETAS DE INFORMACIÓN (Los recuadros con texto)
+// ==========================================================
+*/
+.tarjeta-de-bloque-de-informacion {
     background: rgba(5, 10, 20, 0.85); backdrop-filter: blur(15px); padding: 45px; 
     border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     max-width: 450px; transition: all 0.4s ease; cursor: default;
 }
-.info-block-card:hover { background: rgba(30, 99, 255, 0.15); border-color: rgba(30, 99, 255, 0.6); transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 50px rgba(30, 99, 255, 0.2); }
-.info-block-card h3 { color: var(--white); margin-bottom: 20px; font-size: 1.4rem; color: var(--primary-blue); transition: text-shadow 0.3s ease; }
-.info-block-card:hover h3 { text-shadow: 0 0 10px rgba(30, 99, 255, 0.8); }
-.info-block-card p { color: var(--text-muted); line-height: 1.7; font-weight: 500; transition: color 0.3s; }
-.info-block-card:hover p { color: var(--white); }
-.final-cta-box { text-align: center; }
-.final-cta-box h3 { color: white; font-size: 2rem; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
 
-/* ELEMENTOS COMUNES */
-.tag { color: var(--primary-blue); font-weight: 700; letter-spacing: 2px; font-size: 0.8rem; display: block; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-.product-info h2 { font-size: 2.5rem; color: var(--white); margin-bottom: 35px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-.section-desc-left { font-size: 1.1rem; line-height: 1.7; margin-bottom: 40px; color: #cbd5e1; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
-.info-block { margin-bottom: 40px; }
+/* Al pasar el ratón, las tarjetas se levantan un poco y se iluminan en azul */
+.tarjeta-de-bloque-de-informacion:hover { background: rgba(30, 99, 255, 0.15); border-color: rgba(30, 99, 255, 0.6); transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 50px rgba(30, 99, 255, 0.2); }
+.tarjeta-de-bloque-de-informacion h3 { color: var(--primary-blue); margin-bottom: 20px; font-size: 1.4rem; transition: text-shadow 0.3s ease; }
+.tarjeta-de-bloque-de-informacion:hover h3 { text-shadow: 0 0 10px rgba(30, 99, 255, 0.8); }
+.tarjeta-de-bloque-de-informacion p { color: var(--text-muted); line-height: 1.7; font-weight: 500; transition: color 0.3s; }
+.tarjeta-de-bloque-de-informacion:hover p { color: var(--white); }
 
-/* 3D CARD */
-.product-visual { display: flex; justify-content: center; perspective: 1000px; }
-.card-mockup-pin { width: 100%; max-width: 500px; transform-style: preserve-3d; }
-.card-img-main { width: 100%; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.7); will-change: transform; transform: translateZ(0); }
+/* Textos grandes al final del scroll horizontal */
+.caja-final-de-llamada-a-la-accion { text-align: center; }
+.caja-final-de-llamada-a-la-accion h3 { color: white; font-size: 2rem; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
 
-/* PROCESO */
-.steps-section { padding: 140px 0; background: var(--card-bg); text-align: center; }
-.steps-section h2 { color: var(--white); margin-bottom: 70px; font-size: 2rem; }
-.section-intro { color: var(--text-muted); margin-bottom: 60px; font-size: 1.1rem; }
-.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
-.step-card { background: rgba(255,255,255,0.03); padding: 50px 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-.step-number { width: 60px; height: 60px; background: var(--primary-blue); color: white; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px auto; font-size: 1.3rem; }
-.step-card h3 { color: var(--white); margin-bottom: 20px; }
-.step-card p { color: var(--text-muted); font-size: 0.95rem; }
+/* Textos comunes genéricos */
+.etiqueta-destacada { color: var(--primary-blue); font-weight: 700; letter-spacing: 2px; font-size: 0.8rem; display: block; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.informacion-del-producto h2 { font-size: 2.5rem; color: var(--white); margin-bottom: 35px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.descripcion-de-la-seccion-izquierda { font-size: 1.1rem; line-height: 1.7; margin-bottom: 40px; color: #cbd5e1; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+.bloque-de-informacion { margin-bottom: 40px; }
 
-/* CATÁLOGO */
-.catalog-section { position: relative; padding: 140px 0; background-image: url('imagenes/fondo_mar.jpg'); background-size: cover; background-position: center; background-attachment: fixed; text-align: center; }
-.overlay-blue { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 27, 42, 0.9); z-index: 1; }
-.relative-content { position: relative; z-index: 2; }
-.catalog-section h2 { color: var(--white); font-size: 2.5rem; margin-bottom: 15px; }
-.catalog-subtitle { color: #cbd5e1; margin-bottom: 70px; font-size: 1.1rem; }
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 35px; }
-.catalog-item { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; }
-.catalog-item:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); border-color: var(--primary-blue); }
-.catalog-item img { width: 100%; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-.catalog-item h3 { color: var(--white); font-size: 1.4rem; margin-bottom: 10px; }
-.catalog-item p { color: #cbd5e1; font-size: 0.9rem; }
-.btn-white { background: var(--white); color: var(--primary-blue); margin-top: 60px; }
-.btn-white:hover { background: #f0f0f0; color: var(--dark-bg); }
 
-/* VENTAJAS */
-.features-section { padding: 140px 0; background: var(--dark-bg); text-align: center; position: relative; overflow: hidden; }
-.features-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(30,99,255,0.05) 0%, transparent 60%); z-index: 0; pointer-events: none; }
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; position: relative; z-index: 1; }
-.feature-card { padding: 50px 35px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
-.feature-card:hover { transform: translateY(-10px); background: rgba(30,99,255,0.05); border-color: var(--primary-blue); box-shadow: 0 15px 40px rgba(30, 99, 255, 0.2); }
-.feature-card::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); transition: 0.5s; }
-.feature-card:hover::after { left: 150%; transition: 0.7s ease-in-out; }
-.feature-card h3 { color: var(--white); margin-bottom: 20px; font-size: 1.5rem; transition: color 0.3s; }
-.feature-card:hover h3 { color: var(--primary-blue); }
-.feature-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+/* // ============================================================================
+// 9. IMAGEN DE LA TARJETA EN 3D
+// ============================================================================ 
+*/
+.zona-visual-del-producto { display: flex; justify-content: center; perspective: 1000px; }
+.contenedor-fijo-de-la-tarjeta { width: 100%; max-width: 500px; transform-style: preserve-3d; }
+.imagen-principal-de-la-tarjeta { width: 100%; border-radius: 15px; box-shadow: 0 15px 30px rgba(0,0,0,0.7); will-change: transform; transform: translateZ(0); }
 
-/* FOOTER AVANZADO */
-.main-footer { background-color: var(--footer-bg); padding: 80px 0 30px 0; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 60px; }
-.footer-col h4 { color: var(--white); font-size: 1.1rem; margin-bottom: 25px; letter-spacing: 1px; }
-.footer-col p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 15px; }
-.footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
-.footer-col ul li a:hover { color: var(--primary-blue); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; text-align: center; color: #475569; font-size: 0.85rem; }
 
-/* CONTACTO */
-.contact-header { margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto; }
-.form-wrapper { display: flex; gap: 50px; justify-content: center; align-items: flex-start; flex-wrap: wrap; perspective: 1000px; }
-.price-sidebar { flex: 1; min-width: 300px; max-width: 400px; }
-.price-box { display: block; width: 100%; padding: 40px; border: 1px solid var(--primary-blue); border-radius: 12px; background: rgba(30,99,255,0.1); transform-style: preserve-3d; will-change: transform;}
-.price { display: block; font-size: 3rem; color: white; font-weight: bold; margin-bottom: 10px; }
-.detail { font-size: 1rem; color: var(--text-light); display: block; margin-bottom: 30px; }
-.price-features { text-align: left; margin-top: 20px; list-style: none; font-size: 1rem; color: var(--text-muted); padding: 0; }
-.price-features li { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
-.order-form { flex: 2; min-width: 320px; max-width: 650px; background: rgba(255,255,255,0.02); padding: 50px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-.form-group { margin-bottom: 25px; }
-.form-group label { display: block; margin-bottom: 10px; color: var(--white); font-size: 0.95rem; }
-.consent-box { color: var(--text-muted); font-size: 0.85rem; margin-top: 20px; }
-.consent-box a { color: var(--primary-blue); }
-.form-group input, .form-group textarea { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: white; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); font-size: 1rem; }
-.form-group input:hover, .form-group textarea:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
-.form-group input:focus, .form-group textarea:focus { border-color: var(--primary-blue); outline: none; background: rgba(30, 99, 255, 0.05); transform: scale(1.02); box-shadow: 0 0 20px rgba(30, 99, 255, 0.3); }
-.cta-button { width: 100%; padding: 18px; background: var(--primary-blue); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 25px; text-transform: uppercase; letter-spacing: 2px; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(30, 99, 255, 0.3); font-size: 1rem; }
-.cta-button:hover { background: #2970ff; transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(30, 99, 255, 0.5); }
-.cta-button:active { transform: translateY(1px); box-shadow: 0 2px 10px rgba(30, 99, 255, 0.4); }
+/* // ============================================================================
+// 10. SECCIÓN "CÓMO FUNCIONA" (Los 3 pasos a seguir)
+// ============================================================================ 
+*/
+.seccion-de-pasos-del-proceso { padding: 140px 0; background: var(--card-bg); text-align: center; }
+.seccion-de-pasos-del-proceso h2 { color: var(--white); margin-bottom: 70px; font-size: 2rem; }
+.texto-introductorio-de-la-seccion { color: var(--text-muted); margin-bottom: 60px; font-size: 1.1rem; }
 
-/* BOTÓN VOLVER ARRIBA */
-.scroll-top-btn {
+/* Creamos una cuadrícula de 3 columnas iguales para los 3 pasos */
+.cuadricula-de-los-pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; }
+.tarjeta-individual-del-paso { background: rgba(255,255,255,0.03); padding: 50px 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
+
+/* Los circulitos azules con el número del paso dentro (1, 2 y 3) */
+.numero-destacado-del-paso { width: 60px; height: 60px; background: var(--primary-blue); color: white; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px auto; font-size: 1.3rem; }
+.tarjeta-individual-del-paso h3 { color: var(--white); margin-bottom: 20px; }
+.tarjeta-individual-del-paso p { color: var(--text-muted); font-size: 0.95rem; }
+
+
+/* // ============================================================================
+// 11. CATÁLOGO DE TÍTULOS (PER, PNB, ETC.)
+// ============================================================================ 
+*/
+/* Ponemos una foto del mar de fondo fija */
+.seccion-del-catalogo-de-titulos { position: relative; padding: 140px 0; background-image: url('imagenes/fondo_mar.jpg'); background-size: cover; background-position: center; background-attachment: fixed; text-align: center; }
+.capa-azul-superpuesta { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 27, 42, 0.9); z-index: 1; }
+.contenido-por-encima-del-fondo { position: relative; z-index: 2; }
+.seccion-del-catalogo-de-titulos h2 { color: var(--white); font-size: 2.5rem; margin-bottom: 15px; }
+.subtitulo-del-catalogo { color: #cbd5e1; margin-bottom: 70px; font-size: 1.1rem; }
+
+/* Cuadrícula flexible: mete tantas tarjetas como quepan, pero sin que midan menos de 240px */
+.cuadricula-de-tarjetas-de-titulos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 35px; }
+
+/* La tarjeta con la foto del carnet (Efecto difuminado cristalino) */
+.tarjeta-individual-del-catalogo { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; }
+.tarjeta-individual-del-catalogo:hover { transform: translateY(-10px); background: rgba(255,255,255,0.15); border-color: var(--primary-blue); }
+.tarjeta-individual-del-catalogo img { width: 100%; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+.tarjeta-individual-del-catalogo h3 { color: var(--white); font-size: 1.4rem; margin-bottom: 10px; }
+.tarjeta-individual-del-catalogo p { color: #cbd5e1; font-size: 0.9rem; }
+
+/* Un botón blanco para variar */
+.boton-color-blanco { background: var(--white); color: var(--primary-blue); margin-top: 60px; }
+.boton-color-blanco:hover { background: #f0f0f0; color: var(--dark-bg); }
+
+
+/* // ============================================================================
+// 12. VENTAJAS E INNOVACIÓN
+// ============================================================================ 
+*/
+.seccion-de-caracteristicas { padding: 140px 0; background: var(--dark-bg); text-align: center; position: relative; overflow: hidden; }
+
+/* Un círculo brillante azul difuminado de fondo */
+.seccion-de-caracteristicas::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(30,99,255,0.05) 0%, transparent 60%); z-index: 0; pointer-events: none; }
+.cuadricula-de-caracteristicas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; position: relative; z-index: 1; }
+.tarjeta-de-caracteristica { padding: 50px 35px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
+.tarjeta-de-caracteristica:hover { transform: translateY(-10px); background: rgba(30,99,255,0.05); border-color: var(--primary-blue); box-shadow: 0 15px 40px rgba(30, 99, 255, 0.2); }
+
+/* Un efecto de un brillo que pasa rápido al poner el ratón por encima */
+.tarjeta-de-caracteristica::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); transition: 0.5s; }
+.tarjeta-de-caracteristica:hover::after { left: 150%; transition: 0.7s ease-in-out; }
+.tarjeta-de-caracteristica h3 { color: var(--white); margin-bottom: 20px; font-size: 1.5rem; transition: color 0.3s; }
+.tarjeta-de-caracteristica:hover h3 { color: var(--primary-blue); }
+.tarjeta-de-caracteristica p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+
+
+/* // ============================================================================
+// 13. EL PIE DE PÁGINA (FOOTER)
+// La zona negra de abajo con todos los links aburridos.
+// ============================================================================ 
+*/
+.pie-de-pagina-de-la-web { background-color: var(--footer-bg); padding: 80px 0 30px 0; margin-top: auto; border-top: 1px solid rgba(255,255,255,0.05); }
+
+/* Lo dividimos en 4 columnas. La primera y la última son un poco más anchas */
+.cuadricula-de-columnas-del-pie-de-pagina { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 60px; }
+
+.columna-individual-del-pie-de-pagina h4 { color: var(--white); font-size: 1.1rem; margin-bottom: 25px; letter-spacing: 1px; }
+.columna-individual-del-pie-de-pagina p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
+.columna-individual-del-pie-de-pagina ul { list-style: none; }
+.columna-individual-del-pie-de-pagina ul li { margin-bottom: 15px; }
+.columna-individual-del-pie-de-pagina ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+.columna-individual-del-pie-de-pagina ul li a:hover { color: var(--primary-blue); }
+
+/* La tirita final del Copyright */
+.franja-inferior-del-pie-de-pagina { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; text-align: center; color: #475569; font-size: 0.85rem; }
+
+/* // ============================================================================
+// 14. EL FORMULARIO DE COMPRA Y LA CAJA DEL PRECIO
+// ============================================================================ 
+*/
+.cabecera-de-la-zona-de-compra { margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+/* El envoltorio divide la pantalla en 2: precio a la izquierda, formulario a la derecha */
+.caja-que-envuelve-el-formulario-y-el-precio { display: flex; gap: 50px; justify-content: center; align-items: flex-start; flex-wrap: wrap; perspective: 1000px; }
+.columna-lateral-con-el-precio { flex: 1; min-width: 300px; max-width: 400px; }
+.tarjeta-visual-del-resumen-de-precio { display: block; width: 100%; padding: 40px; border: 1px solid var(--primary-blue); border-radius: 12px; background: rgba(30,99,255,0.1); transform-style: preserve-3d; will-change: transform;}
+.texto-gigante-del-precio { display: block; font-size: 3rem; color: white; font-weight: bold; margin-bottom: 10px; }
+.texto-pequeno-de-impuestos { font-size: 1rem; color: var(--text-light); display: block; margin-bottom: 30px; }
+.lista-de-ventajas-incluidas { text-align: left; margin-top: 20px; list-style: none; font-size: 1rem; color: var(--text-muted); padding: 0; }
+.lista-de-ventajas-incluidas li { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+
+/* Caja oscura del formulario con un borde muy fino */
+.estilos-generales-del-formulario { flex: 2; min-width: 320px; max-width: 650px; background: rgba(255,255,255,0.02); padding: 50px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.bloque-de-campo-del-formulario { margin-bottom: 25px; }
+.bloque-de-campo-del-formulario label { display: block; margin-bottom: 10px; color: var(--white); font-size: 0.95rem; }
+.caja-para-aceptar-politicas-legales { color: var(--text-muted); font-size: 0.85rem; margin-top: 20px; }
+.caja-para-aceptar-politicas-legales a { color: var(--primary-blue); }
+
+/* Diseño de las casillas donde el usuario escribe sus datos (Nombre, Teléfono...) */
+.bloque-de-campo-del-formulario input, .bloque-de-campo-del-formulario textarea { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: white; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); font-size: 1rem; }
+
+/* Si el usuario pincha en la casilla para escribir, la caja se ilumina de color azul */
+.bloque-de-campo-del-formulario input:hover, .bloque-de-campo-del-formulario textarea:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+.bloque-de-campo-del-formulario input:focus, .bloque-de-campo-del-formulario textarea:focus { border-color: var(--primary-blue); outline: none; background: rgba(30, 99, 255, 0.05); transform: scale(1.02); box-shadow: 0 0 20px rgba(30, 99, 255, 0.3); }
+
+/* El botón azul enorme de "PAGAR" al final del formulario */
+.boton-gigante-de-confirmacion { width: 100%; padding: 18px; background: var(--primary-blue); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 25px; text-transform: uppercase; letter-spacing: 2px; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(30, 99, 255, 0.3); font-size: 1rem; }
+.boton-gigante-de-confirmacion:hover { background: #2970ff; transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(30, 99, 255, 0.5); }
+.boton-gigante-de-confirmacion:active { transform: translateY(1px); box-shadow: 0 2px 10px rgba(30, 99, 255, 0.4); }
+
+
+/* // ============================================================================
+// 15. BOTÓN FLOTANTE "VOLVER ARRIBA" (Esquina inferior derecha)
+// ============================================================================ 
+*/
+.boton-para-subir-arriba {
     position: fixed; bottom: 30px; right: 30px;
     width: 50px; height: 50px;
     background: var(--primary-blue); color: white;
-    border-radius: 50%;
+    border-radius: 50%; /* Hace que sea un círculo perfecto */
     display: flex; justify-content: center; align-items: center;
     font-size: 1.5rem;
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     cursor: pointer;
+
+    /* Por defecto, está invisible hasta que el usuario hace scroll hacia abajo */
     opacity: 0; visibility: hidden;
     transform: translateY(20px); transition: all 0.4s ease;
     z-index: 1000; text-decoration: none;
 }
-.scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
-.scroll-top-btn:hover { background: #2970ff; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(30,99,255,0.6); }
 
-/* ==========================================================================
-   --- RESPONSIVE / MÓVIL ---
-   (Este bloque se activa SOLO si la pantalla mide menos de 768px)
-   ========================================================================== */
+/* JS le añade esta clase para hacerlo visible mágicamente */
+.boton-para-subir-arriba.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.boton-para-subir-arriba:hover { background: #2970ff; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(30,99,255,0.6); }
+
+/* // ============================================================================
+// 16. RESPONSIVE / ADAPTACIÓN PARA TELÉFONOS MÓVILES
+// Todo el código dentro de este '@media' SÓLO se aplica si la pantalla 
+// es pequeña (teléfonos o tablets menores a 768px de ancho).
+// ============================================================================ 
+*/
 @media (max-width: 768px) {
     
-    /* 1. Resetear el Scroll Horizontal para que sea Vertical */
-    .horizontal-scroll-section { height: auto !important; overflow: visible; }
-    .horizontal-wrapper { 
+    /* 1. En el móvil, rompemos el efecto del scroll de lado a lado para que sea hacia abajo, más cómodo en el dedo */
+    .seccion-de-desplazamiento-horizontal { height: auto !important; overflow: visible; } 
+    .envoltorio-horizontal { 
         width: 100% !important; /* Ancho normal */
-        flex-direction: column; /* Elementos uno debajo de otro */
+        flex-direction: column; /* Ponemos los bloques en columna (uno debajo de otro) */
         display: flex; 
         transform: none !important; /* Desactivar movimiento de JS si queda alguno */
     }
-    .panel { 
+    .panel-individual { 
         width: 100% !important; 
         height: auto !important; 
         padding: 60px 20px; 
@@ -225,53 +378,57 @@ main, .contact-page { flex: 1; }
         display: block; 
     }
 
-    /* 2. Ajustar rejillas para que todo esté en 1 columna */
-    .product-grid, 
-    .product-grid-horizontal, 
-    .steps-grid, 
-    .features-horizontal-layout,
-    .footer-grid,
-    .nav-container { 
+    /* 2. Rompemos todas las cuadrículas de la web para que todo pase a ser de 1 sola columna de ancho */
+    .cuadricula-de-productos, 
+    .cuadricula-de-productos-horizontal, 
+    .cuadricula-de-los-pasos, 
+    .disposicion-horizontal-de-caracteristicas,
+    .cuadricula-de-columnas-del-pie-de-pagina,
+    .caja-de-la-barra-de-navegacion { 
         grid-template-columns: 1fr; 
         gap: 40px; 
         flex-direction: column; 
     }
 
-    /* 3. Ajustes de tamaños y márgenes */
-    .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-    .nav-links a { font-size: 0.8rem; }
-    .hero-section h1 { font-size: 2.2rem; }
-    .hero-btns { flex-direction: column; width: 100%; }
-    .btn-hero, .btn-secondary { width: 100%; text-align: center; }
-    .info-block-card { width: 100%; max-width: 100%; padding: 30px; }
-    .form-wrapper { gap: 40px; }
-    .price-sidebar, .order-form { min-width: 100%; }
+    /* 3. Reducimos el tamaño de la letra de la portada y apilamos los botones uno debajo de otro */
+    .lista-de-enlaces-del-menu { gap: 15px; flex-wrap: wrap; justify-content: center; }
+    .lista-de-enlaces-del-menu a { font-size: 0.8rem; }
+    .seccion-principal-de-portada h1 { font-size: 2.2rem; }
+    .caja-de-botones-de-la-portada { flex-direction: column; width: 100%; }
+    .boton-principal-destacado, .boton-secundario-transparente { width: 100%; text-align: center; }
+    
+    /* El precio y el formulario de compra ahora se apilan, ya no van uno a la izquierda y otro a la derecha */
+    .tarjeta-de-bloque-de-informacion { width: 100%; max-width: 100%; padding: 30px; }
+    .caja-que-envuelve-el-formulario-y-el-precio { gap: 40px; }
+    .columna-lateral-con-el-precio, .estilos-generales-del-formulario { min-width: 100%; }
 }
 
-/* =========================================
-   MENÚ HAMBURGUESA (VERSIÓN DESPLEGABLE)
-   ========================================= */
+/* // ============================================================================
+// 17. DISEÑO DEL MENÚ HAMBURGUESA (El botón de las 3 rayitas de los móviles)
+// ============================================================================ 
+*/
 
-/* Estilo base del botón (oculto en PC) */
-.menu-toggle {
+/* En ordenador, escondemos el botón de las 3 rayitas */
+.boton-de-tres-rayas-para-moviles {
     display: none;
     cursor: pointer;
 }
 
-.bar {
+/* Estilo para las tres líneas blancas que forman el icono de hamburguesa */
+.raya-del-boton {
     display: block;
     width: 25px;
     height: 3px;
     margin: 5px auto;
     transition: all 0.3s ease-in-out;
-    
+
     /* FORZAR EL BLANCO A LO BRUTO */
     background-color: #ffffff !important; 
     background: #ffffff !important;
-    
+
     /* Sombras para que destaque si el fondo falla */
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5); 
-    
+
     /* Evitar que el navegador invierta los colores */
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
@@ -280,37 +437,35 @@ main, .contact-page { flex: 1; }
 /* SOLO PARA MÓVILES (Menor de 768px) - VERSIÓN COMPACTA */
 @media (max-width: 768px) {
     
-    .nav-container {
+    .caja-de-la-barra-de-navegacion {
         position: relative;
     }
 
-    .menu-toggle {
+    /* Si es la pantalla de un móvil, entonces SÍ mostramos el botón de las 3 rayitas */
+    .boton-de-tres-rayas-para-moviles {
         display: block;
         z-index: 2000;
         /* Ajustamos un poco la posición del botón si hace falta */
     }
 
-    /* Animación del botón */
-    .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
-    .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    /* Animación chula: Cuando el menú se abre, las rayitas se cruzan formando una "X" */
+    .boton-de-tres-rayas-para-moviles.esta-activo .raya-del-boton:nth-child(2) { opacity: 0; }
+    .boton-de-tres-rayas-para-moviles.esta-activo .raya-del-boton:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .boton-de-tres-rayas-para-moviles.esta-activo .raya-del-boton:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* EL MENÚ DESPLEGABLE COMPACTO */
-    .nav-links {
+    /* EL MENÚ DESPLEGABLE COMPACTO, escondemos los enlaces normales (Inicio, contacto...) en una caja invisible que bajará después */
+    .lista-de-enlaces-del-menu {
         position: absolute;
         top: 100%; 
         left: 0;
         width: 100%;
         height: auto;
-        
         background-color: #0b1116; /* Mismo color que el fondo para que se integre mejor */
         border-bottom: 2px solid var(--primary-blue);
         box-shadow: 0 15px 30px rgba(0,0,0,0.7);
-        
         flex-direction: column;
         align-items: center;
         padding: 10px 0; /* MENOS Relleno general */
-        
         transform: translateY(-20px); 
         opacity: 0;
         visibility: hidden;
@@ -318,13 +473,15 @@ main, .contact-page { flex: 1; }
         z-index: 1000;
     }
 
-    .nav-links.active {
+    /* Cuando desde JS le añadimos la clase ".activo", el menú aparece de golpe */
+    .lista-de-enlaces-del-menu.activo {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
     }
 
-    .nav-links li {
+    /* Estilo para las opciones del menú abierto en móvil */
+    .lista-de-enlaces-del-menu li {
         margin: 0; /* Quitamos márgenes externos */
         width: 100%;
         text-align: center;
@@ -332,11 +489,11 @@ main, .contact-page { flex: 1; }
     }
     
     /* Quitamos la línea del último elemento */
-    .nav-links li:last-child {
+    .lista-de-enlaces-del-menu li:last-child {
         border-bottom: none;
     }
 
-    .nav-links a {
+    .lista-de-enlaces-del-menu a {
         display: block;
         padding: 12px 0; /* El espacio lo damos aquí para que sea clicable */
         font-size: 0.9rem; /* LETRA MÁS PEQUEÑA */
@@ -344,12 +501,12 @@ main, .contact-page { flex: 1; }
         width: 100%;
     }
 
-    .nav-links li:hover {
+    .lista-de-enlaces-del-menu li:hover {
         background-color: rgba(30, 99, 255, 0.1); /* Efecto azulito al pasar el dedo */
     }
     
-    /* El botón de contacto un poco diferente */
-    .nav-btn {
+    /* Botón de contacto especial para móviles */
+    .boton-destacado-del-menu {
         background: transparent !important; /* Quitar fondo azul botón */
         color: var(--primary-blue) !important; /* Letras azules */
         padding: 12px 0 !important;
