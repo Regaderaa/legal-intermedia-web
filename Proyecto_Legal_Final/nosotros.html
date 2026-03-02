@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros - Legal Intermedia</title>
     <link rel="icon" type="image/png" href="imagenes/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* Separación de la caja principal para que no se pegue al menú de arriba */
         .seccion-sobre-nosotros { padding: 160px 0 100px 0; background: var(--dark-bg); }
+        
+        /* Hacemos que la columna de texto sea estrecha (800px) para que se lea cómodamente */
         .contenido-sobre-nosotros { max-width: 800px; margin: 0 auto; }
+        
+        /* Color gris claro y separación entre líneas para que la lectura no canse */
         .texto-sobre-nosotros { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px; line-height: 1.8; }
+        
+        /* Diseño de la caja azul resaltada que dice "Tecnología y Legalidad" */
         .caja-de-texto-destacado { 
             background: rgba(30, 99, 255, 0.1); 
-            border-left: 4px solid var(--primary-blue); 
+            border-left: 4px solid var(--primary-blue); /* La línea azul gordita de la izquierda */
             padding: 30px; 
             margin: 40px 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 8px 8px 0; /* Solo redondeamos las esquinas de la derecha */
         }
         .caja-de-texto-destacado h3 { color: var(--white); margin-bottom: 15px; }
         .caja-de-texto-destacado p { margin-bottom: 0; }
     </style>
 </head>
-<body>
 
+<body>
     <nav class="barra-de-navegacion-principal">
         <div class="contenedor-centrado caja-de-la-barra-de-navegacion">
             <div class="texto-del-logotipo-de-la-empresa">LEGAL INTERMEDIA</div>
-            
             <div class="boton-de-tres-rayas-para-moviles" id="boton-abrir-menu-movil">
                 <span class="raya-del-boton"></span>
                 <span class="raya-del-boton"></span>
@@ -51,6 +56,7 @@
         <section class="seccion-sobre-nosotros">
             <div class="contenedor-centrado">
                 <div class="contenido-sobre-nosotros">
+                    
                     <span class="etiqueta-de-novedad" style="margin-bottom: 20px;">NUESTRA MISIÓN</span>
                     <h2>Digitalizando la Seguridad Marítima</h2>
                     
