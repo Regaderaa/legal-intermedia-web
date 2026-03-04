@@ -1,8 +1,8 @@
-# ⚓ Legal Intermedia - Acreditación Náutica Inteligente
+# Legal Intermedia - Acreditación Náutica Inteligente
 
 Este repositorio contiene el código fuente completo (Frontend + Backend) para la plataforma de Legal Intermedia. El proyecto incluye una pasarela de pagos con Stripe y conexión a base de datos en MongoDB.
 
-## 🛠️ Requisitos Previos
+## Requisitos Previos
 Para levantar este proyecto en tu máquina local (entorno de desarrollo), necesitas:
 - [Node.js](https://nodejs.org/) instalado.
 - Acceso al panel de **Stripe** (entorno de pruebas/test).
@@ -10,7 +10,7 @@ Para levantar este proyecto en tu máquina local (entorno de desarrollo), necesi
 - Acceso a **Render** (donde está subida la web pública).
 *(Solicita invitación a estas plataformas al administrador del proyecto).*
 
-## 🚀 Instalación y Configuración Local
+## Instalación y Configuración Local
 
 1. **Clonar el repositorio:**
 
@@ -33,7 +33,7 @@ Para levantar este proyecto en tu máquina local (entorno de desarrollo), necesi
     node server.js
 
 
-5. **🗄️ Estructura de la Base de Datos (Modelo de Datos)**
+5. **Estructura de la Base de Datos (Modelo de Datos)**
 
 La colección principal en MongoDB almacena los pedidos de los clientes. Cada documento tiene aproximadamente esta estructura:
 
