@@ -14,7 +14,7 @@ Para levantar este proyecto en tu máquina local (entorno de desarrollo), necesi
 
 1. **Clonar el repositorio:**
 
-   git clone [https://github.com/TU-USUARIO-DE-GITHUB/legal-intermedia-web.git](https://github.com/TU-USUARIO-DE-GITHUB/legal-intermedia-web.git)
+   git clone [https://github.com/Regaderaa/legal-intermedia-web.git](https://github.com/Regaderaa/legal-intermedia-web.git)
    cd legal-intermedia-web
 
 2. **Instalar dependencias del servidor:**
